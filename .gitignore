@@ -463,6 +463,7 @@ dist
 
 # Stores VSCode versions used for testing VSCode extensions
 .vscode-test
+.vscode/
 
 # yarn v2
 .yarn/cache
@@ -474,21 +475,7 @@ dist
 # End of https://mrkandreev.name/snippets/gitignore-generator/#vs,Node
 
 # FD - Custom
-DB*/
-DB/
-DB*/*
-DB/*
-db/
-.json
-DB/*.json
 config/*
-
-.vscode/
-
 package-lock.json
-locales.json
-
 *.test.*
-
-config.json
-/src/*
+/src/build_locales.json

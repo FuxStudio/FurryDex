@@ -338,7 +338,7 @@ module.exports = {
 		} else {
 			return interaction.editReply({
 				content: 'Sorry, this *command* is disable. Er0r: 403',
-				ephemerel: true,
+				ephemeral: true,
 			});
 		}
 	},
