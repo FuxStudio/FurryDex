@@ -2,277 +2,277 @@
 	"buttons": {
 		"catch": {
 			"modal": {
-				"title": "Catch this Furry Card !",
-				"question": "Name of this Furry",
-				"placeholder": "Your guess"
+				"title": "Attrape cette carte Furry !",
+				"question": "Le nom de ce Furry",
+				"placeholder": "Votre réponse"
 			}
 		}
 	},
 	"commands": {
 		"config": {
-			"name": "config",
-			"description": "base config command",
+			"name": "configuration",
+			"description": "commande de configuration de base",
 			"options": {
 				"enable": {
-					"name": "enable",
-					"description": "enable or disable the card spawn.",
+					"name": "activé",
+					"description": "activer ou désactiver le spawn des cartes.",
 					"options": {
 						"enable": {
-							"name": "enable",
-							"description": "enable or disable the card spawn.",
+							"name": "activé",
+							"description": "activer ou désactiver le spawn des cartes.",
 							"choices": {
-								"Enable": "Enable",
-								"Disable": "Disable"
+								"Enable": "Activer",
+								"Disable": "Désactiver"
 							}
 						}
 					}
 				},
 				"channel": {
-					"name": "channel",
-					"description": "Channel where card will spawn.",
+					"name": "salon",
+					"description": "Canal d'apparition des cartes.",
 					"options": {
 						"channel": {
-							"name": "channel",
-							"description": "Channel where card will spawn."
+							"name": "salon",
+							"description": "Canal d'apparition des cartes."
 						}
 					}
 				},
 				"locale": {
-					"name": "locale",
-					"description": "Set the base-lang for the server.",
+					"name": "langue",
+					"description": "Définissez la langue de base du serveur.",
 					"options": {
 						"lang": {
-							"name": "lang",
-							"description": "Set the base-lang for the server.",
+							"name": "langue",
+							"description": "Définissez la langue de base du serveur.",
 							"choices": {
-								"German": "German",
-								"English": "English",
-								"Spanish": "Spanish",
-								"French": "French",
-								"Italian": "Italian",
-								"Dutch": "Dutch",
-								"Norwegian": "Norwegian",
-								"Polish": "Polish",
-								"Portugese": "Portugese",
-								"Romanian": "Romanian",
-								"Finish": "Finish",
-								"Swedish": "Swedish",
-								"Bulgarian": "Bulgarian",
-								"Russian": "Russian",
-								"Ukrainian": "Ukrainian",
-								"Chinese": "Chinese",
-								"Japanese": "Japanese",
-								"Korean": "Korean"
+								"German": "Allemand",
+								"English": "Anglais",
+								"Spanish": "Espagnol",
+								"French": "Français",
+								"Italian": "Italien",
+								"Dutch": "Néerlandais",
+								"Norwegian": "Norvégien",
+								"Polish": "Polonais",
+								"Portugese": "Portugais",
+								"Romanian": "Roumain",
+								"Finish": "Finlandais",
+								"Swedish": "Suédois",
+								"Bulgarian": "Bulgare",
+								"Russian": "Russe",
+								"Ukrainian": "Ukrainien",
+								"Chinese": "Chinois",
+								"Japanese": "Japonais",
+								"Korean": "Coréen"
 							}
 						}
 					}
 				},
 				"auto-locale": {
-					"name": "auto-locale",
-					"description": "Automaticly set the base-lang for the server."
+					"name": "auto-langue",
+					"description": "Réglez automatiquement la langue de base du serveur."
 				},
 				"leaderboard_channel": {
-					"name": "leaderboard_channel",
-					"description": "Set the channel for the leaderboard."
+					"name": "salon_classement",
+					"description": "Définir le salon pour les classements."
 				},
 				"leaderboard": {
-					"name": "leaderboard",
-					"description": "Set the different leaderboards to show."
+					"name": "classement",
+					"description": "Définissez les différents classements à afficher."
 				},
 				"leaderboard_edit": {
-					"name": "leaderboard_edit",
-					"description": "Replace the leaderboard message instead of send another one.",
+					"name": "modification",
+					"description": "Remplacer le message du classement au lieu d'en envoyer un autre.",
 					"options": {
 						"enable": {
-							"name": "enable",
-							"description": "Enable or disable the leaderboard edit function.",
+							"name": "activé",
+							"description": "Activer ou désactiver la fonction d'édition du classement.",
 							"choices": {
-								"Enable": "Enable",
-								"Disable": "Disable"
+								"Enable": "Activer",
+								"Disable": "Désactiver"
 							}
 						}
 					}
 				}
 			},
 			"run": {
-				"changed": "The language have been set to `%lang%`",
-				"changedChan": "The channel have been set to `%channel%`",
-				"changedEna": "The bot is now `%enable%`",
-				"changedLeaderEna": "The edit function for leaderboard is now %enable%",
-				"changedLeaderChan": "The channel for Leaderboard have been set to %channel%",
+				"changed": "La langue a été définie sur `%lang%`",
+				"changedChan": "Le salon a été réglé sur `%channel%`",
+				"changedEna": "Le bot est maintenant `%enable%`",
+				"changedLeaderEna": "La fonction d'édition du classement est maintenant %enable%",
+				"changedLeaderChan": "Le salon des classements a été réglé sur %channel%",
 				"title": "Configuration",
 				"enable": {
-					"title": "Enable",
-					"description": "Enable or disable the card spawn.",
+					"title": "Activé",
+					"description": "Activer ou désactiver le spawn des cartes.",
 					"button": {
-						"enable": "Enable",
-						"disable": "Disable"
+						"enable": "Activé",
+						"disable": "Désactivé"
 					}
 				},
 				"channel": {
-					"title": "Channel",
+					"title": "Salon",
 					"description": "Channel where cards will spawn.",
-					"placeholder": "Select a channel"
+					"placeholder": "Sélectionnez un salon"
 				},
 				"locale": {
-					"title": "Locale",
+					"title": "Langue",
 					"description": "Define the Server language.",
 					"button": "Change language",
-					"placeholder": "Select a language",
+					"placeholder": "Sélectionner une langue",
 					"list": {
-						"de": "German",
-						"en-US": "English",
-						"es": "Spanish",
-						"fr": "French",
-						"it": "Italian",
-						"du": "Dutch",
-						"no": "Norwegian",
-						"pl": "Polish",
-						"pt-BR": "Portugese",
-						"ro": "Romanian",
-						"fi": "Finish",
-						"sv-SE": "Swedish",
-						"bg": "Bulgarian",
-						"ru": "Russian",
-						"uk": "Ukrainian",
-						"zh-CN": "Chinese",
-						"ja": "Japanese",
-						"ko": "Korean"
+						"de": "Allemand",
+						"en-US": "Anglais",
+						"es": "Espagnol",
+						"fr": "Français",
+						"it": "Italien",
+						"du": "Néerlandais",
+						"no": "Norvégien",
+						"pl": "Polonais",
+						"pt-BR": "Portugais",
+						"ro": "Roumain",
+						"fi": "Finlandais",
+						"sv-SE": "Suédois",
+						"bg": "Bulgare",
+						"ru": "Russe",
+						"uk": "Ukrainien",
+						"zh-CN": "Chinois",
+						"ja": "Japonais",
+						"ko": "Coréen"
 					}
 				}
 			}
 		},
 		"generate-id": {
-			"name": "generate-id",
-			"description": "Generate an ID for a card."
+			"name": "generation-id",
+			"description": "Générer un ID pour une carte."
 		},
 		"emit": {
-			"name": "emit",
-			"description": "Emit an event.",
+			"name": "emettre",
+			"description": "Émettre un événement.",
 			"options": {
 				"event": {
 					"guildMemberAdd": "guildMemberAdd",
-					"guildMemberRemove": "guildMemberRemove"
+					"guildMemberRemove": "guildMemberAdd"
 				}
 			}
 		},
 		"guild": {
-			"name": "guild",
-			"description": "Send all guilds."
+			"name": "serveur",
+			"description": "Envoyer toutes les guildes."
 		},
 		"furry": {
 			"name": "furry",
-			"description": "base furry command.",
+			"description": "commande de base de furry.",
 			"options": {
 				"list": {
-					"name": "list",
-					"description": "Send a deck of all your/user card.",
+					"name": "liste",
+					"description": "Envoie toute vos cartes (ou d'un autre utilisateur).",
 					"options": {
 						"user": {
-							"name": "user",
-							"description": "The user you want to see all cards."
+							"name": "utilisateur",
+							"description": "L'utilisateur que vous voulez voir toutes les cartes."
 						}
 					}
 				},
 				"completion": {
-					"name": "completion",
-					"description": "Show your current completion/progress of Furry Cards.",
+					"name": "complétion",
+					"description": "Montrez votre complétion/progression actuelle des Cartes Furry.",
 					"options": {
 						"user": {
-							"name": "user",
-							"description": "The user you want to see all cards."
+							"name": "utilisateur",
+							"description": "L'utilisateur que vous voulez voir toutes les cartes."
 						},
 						"category": {
-							"name": "category",
-							"description": "Get a completion from a specific category of card.",
+							"name": "categorie",
+							"description": "Obtenir un remplissage à partir d'une catégorie spécifique de carte.",
 							"choices": {
-								"Normal": "Normal",
-								"Classic": "Classic",
-								"Special": "Special",
+								"Normal": "Normale",
+								"Classic": "Classique",
+								"Special": "Speciale",
 								"Furry Dex": "Furry Dex",
-								"Furry Dex Special": "Furry Dex Special",
-								"Director": "Director",
+								"Furry Dex Special": "Furry Dex Speciale",
+								"Director": "Directeur",
 								"Tiktok": "TikTok",
 								"Instagram": "Instagram",
-								"Celebration": "Celebration",
-								"Youtuber": "Youtuber",
+								"Celebration": "Fêtes",
+								"Youtuber": "Youtubeur",
 								"Twitch": "Twitch",
-								"Musician": "Musician"
+								"Musician": "Musicien"
 							}
 						}
 					}
 				},
 				"give": {
-					"name": "give",
-					"description": "Give a card to a user.",
+					"name": "donner",
+					"description": "Donner une carte a un utilisateur.",
 					"options": {
 						"give-to": {
-							"name": "give-to",
-							"description": "The user you want to give a card to."
+							"name": "donner-a",
+							"description": "L'utilisateur au-quel vous voulez donner votre carte."
 						}
 					}
 				},
 				"count": {
-					"name": "count",
-					"description": "Count how many card you have.",
+					"name": "nombre",
+					"description": "Compte le nombre de carte que vous avez.",
 					"options": {
 						"give-to": {
 							"name": "user",
-							"description": "The user you want to count cards."
+							"description": "L'utilisateur auquel vous voulez compter son nombre de cartes."
 						}
 					}
 				}
 			},
 			"run": {
-				"no-furry": "`0` furry in this dex",
-				"list": "ATK: %attacks%% • HP: %live%% • Caught on %date%"
+				"no-furry": "Pas de Furry dans ce ",
+				"list": "ATK: %attacks%% • PV : %live%% • Pris le %date%"
 			}
 		},
 		"clear": {
 			"name": "clear",
-			"description": "Delete a wanted number message.",
+			"description": "Supprime un nombre voulue de carte.",
 			"options": {
 				"message": {
 					"name": "message",
-					"description": "number of message you want to delete (1 - 99)"
+					"description": "Nombre de messages que vous voulez supprimer (1 - 99)"
 				}
 			}
 		},
 		"send": {
-			"name": "send",
-			"description": "Send a message.",
+			"name": "envoyer",
+			"description": "Envoie un message.",
 			"options": {
 				"name": {
-					"name": "channel",
-					"description": "Channel where the message will be send"
+					"name": "salon",
+					"description": "Salon dans le quelle le message sera envoyé"
 				},
 				"message": {
 					"name": "message",
-					"description": "Message to send"
+					"description": "Message à envoyer"
 				}
 			}
 		},
 		"help": {
-			"name": "help",
-			"description": "Need help ?",
+			"name": "aide",
+			"description": "Besoin d'aide ?",
 			"options": {
 				"command": {
-					"name": "command",
-					"description": "Get help for a specific command"
+					"name": "commande",
+					"description": "Avoir de l'aide pour une commande spécifique"
 				}
 			}
 		},
 		"ping": {
 			"name": "ping",
-			"description": "Ping-Pong❗ 🏓 | Send the latence of the bot."
+			"description": "Ping-Pong ❗ 🏓| Envoi la latence du bot."
 		}
 	},
 	"events": {},
 	"modals": {
 		"catch": {
-			"no": "Sorry, %@player%, this is not the right name ! Guess: `%guess%`",
-			"already": "Sorry, %@player%, this card was caught already!",
-			"congrat": "Congratulations, %@player%, you caught %cardEmoji% `%cardName%` (`#%cardId%`)"
+			"no": "Désolé, %@player%, ce n'est pas le bon nom ! Essai : `%guess%`",
+			"already": "Désolé, %@player%, cette carte a déjà été capturée !",
+			"congrat": "Félicitations, %@player%, vous avez attrapé %cardEmoji% `%cardName%` (`#%cardId%`)"
 		}
 	},
 	"selects": {},
@@ -280,39 +280,39 @@
 		"function": {
 			"cards": {
 				"container": {
-					"author": "Card by",
+					"author": "Carte par",
 					"id": "ID",
-					"name": "Name",
-					"time": "Caught on",
-					"type": "Type",
-					"species": "Species",
-					"birthday": "Birthday",
-					"gender": "Gender",
-					"live": "HP",
-					"attacks": "ATK",
-					"giveBy": "Offered by"
+					"name": "Nom",
+					"time": "Attrapée le",
+					"type": "Catégorie",
+					"species": "Espèce(s)",
+					"birthday": "Anniversaire",
+					"gender": "Genre",
+					"live": "PV",
+					"attacks": "ATQ",
+					"giveBy": "Offerte par"
 				}
 			},
 			"spawn": {
 				"embed": {
-					"title": "Oh ! A wild *Furry Card* spawn !"
+					"title": "Oh ! Une *Carte Furry* sauvage !"
 				},
 				"button": {
-					"text": "Catch Me !"
+					"text": "Attrape moi !"
 				}
 			}
 		},
 		"cards": {
 			"category": {
-				"normal": "Normal",
-				"classic": "Classic",
-				"special": "Special",
+				"normal": "Normale",
+				"classic": "Classique",
+				"special": "Speciale",
 				"fd": "Furry Dex",
-				"fd_special": "Furry Dex Special",
-				"director": "Director",
-				"tiktok": "Tiktok",
+				"fd_special": "Furry Dex Speciale",
+				"director": "Directeur",
+				"tiktok": "TikTok",
 				"instagram": "Instagram",
-				"celebration": "Celebration",
+				"celebration": "Fêtes",
 				"youtube": "Youtuber",
 				"streamer": "Twitch",
 				"musician": "Musician"
@@ -367,6 +367,6 @@
 		}
 	},
 	"isReady": {
-		"yes": "ready"
+		"yes": "prêt"
 	}
 }
