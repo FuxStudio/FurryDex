@@ -67,6 +67,7 @@ module.exports = {
 							.setChannelTypes([ChannelType.GuildText])
 					);
 					if (serverConfig.spawn_channel) actionRow.components[0].setDefaultChannels([serverConfig.spawn_channel]);
+					return actionRow;
 				})
 				.addSeparatorComponents((separator) => separator)
 				//locale
