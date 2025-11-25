@@ -160,7 +160,7 @@ module.exports = {
 				.update({ leaderboard_channel: interaction.options.getChannel('channel').id })
 				.where({ id: interaction.guild.id })
 				.catch((err) => console.error(err));
-			let message = locales.run.changedLeaderChan[interaction.locale] ?? locales.run.changedLeaderChan.default;
+			let message = locales.run.changedLeaderChan[interaction.locale] ?? locales.run.changedLeaderChan["en-US"];
 			interaction.editReply(message.replace('%channel%', interaction.options.getChannel('channel').name));
 		}
 		if (subcommand == 'leaderboard') {
@@ -200,7 +200,7 @@ module.exports = {
 			} else {
 				return interaction.editReply('Cannot enable leaderboard if the channel is not set, use `/config leaderboard_channel <channel>`');
 			}
-			let message = locales.run.changedLeaderEna[interaction.locale] ?? locales.run.changedLeaderEna.default;
+			let message = locales.run.changedLeaderEna[interaction.locale] ?? locales.run.changedLeaderEna["en-US"];
 			interaction.editReply(message.replace('%enable%', interaction.options.getString('enable') == 'true' ? 'Enable' : 'Disable'));
 		}
 			*/

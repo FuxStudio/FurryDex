@@ -158,12 +158,12 @@ module.exports = {
 		}
 
 		if (subcommand == 'list') {
-			if (user_cards.length == 0) return interaction.editReply({ content: locales.run['no-furry'][interaction.locale] ?? locales.run['no-furry'].default, flags: MessageFlags.Ephemeral });
+			if (user_cards.length == 0) return interaction.editReply({ content: locales.run['no-furry'][interaction.locale] ?? locales.run['no-furry']['en-US'], flags: MessageFlags.Ephemeral });
 			AllOptions = [];
 			user_cards.forEach(async (card, key) => {
 				let date = new Date(card.date);
 				cd = (num) => num.toString().padStart(2, 0);
-				let description = locales.run.list[interaction.locale] ?? locales.run.list.default;
+				let description = locales.run.list[interaction.locale] ?? locales.run.list['en-US'];
 				let card_info = await client
 					.knex('cards')
 					.first('*')
@@ -230,16 +230,16 @@ module.exports = {
 				.setTimestamp();
 			interaction.editReply({ embeds: [embed] });
 		} else if (subcommand == 'count') {
-			if (user_cards.length == 0) return interaction.editReply({ content: locales.run['no-furry'][interaction.locale] ?? locales.run['no-furry'].default, flags: MessageFlags.Ephemeral });
+			if (user_cards.length == 0) return interaction.editReply({ content: locales.run['no-furry'][interaction.locale] ?? locales.run['no-furry']['en-US'], flags: MessageFlags.Ephemeral });
 			return interaction.editReply({ content: `The deck got \`%number%\` cards`.replace('%number%', user_cards.length) });
 		} else if (subcommand == 'give') {
-			if (user_cards.length == 0) return interaction.editReply({ content: locales.run['no-furry'][interaction.locale] ?? locales.run['no-furry'].default, flags: MessageFlags.Ephemeral });
+			if (user_cards.length == 0) return interaction.editReply({ content: locales.run['no-furry'][interaction.locale] ?? locales.run['no-furry']['en-US'], flags: MessageFlags.Ephemeral });
 			let giveTo = interaction.options.getUser('give-to');
 			AllOptions = [];
 			user_cards.forEach(async (card, key) => {
 				let date = new Date(card.date);
 				cd = (num) => num.toString().padStart(2, 0);
-				let description = locales.run.list[interaction.locale] ?? locales.run.list.default;
+				let description = locales.run.list[interaction.locale] ?? locales.run.list['en-US'];
 				let card_info = await client
 					.knex('cards')
 					.first('*')
