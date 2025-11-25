@@ -153,7 +153,7 @@
 			"options": {
 				"event": {
 					"guildMemberAdd": "guildMemberAdd",
-					"guildMemberRemove": "guildMemberAdd"
+					"guildMemberRemove": "guildMemberRemove"
 				}
 			}
 		},
@@ -189,9 +189,9 @@
 							"choices": {
 								"Normal": "Normale",
 								"Classic": "Classique",
-								"Special": "Speciale",
+								"Special": "Spéciale",
 								"Furry Dex": "Furry Dex",
-								"Furry Dex Special": "Furry Dex Speciale",
+								"Furry Dex Special": "Furry Dex Spéciale",
 								"Director": "Directeur",
 								"Tiktok": "TikTok",
 								"Instagram": "Instagram",
