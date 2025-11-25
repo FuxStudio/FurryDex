@@ -13,7 +13,7 @@ module.exports = {
 			.where({ id: interaction.guild.id })
 			.catch((err) => console.error(err));
 		if (serverConfig.last_Card == null) {
-			let message = locales.already[serverConfig.locale] ?? locales.already.default;
+			let message = locales.already[serverConfig.locale] ?? locales.already['en-US'];
 			interaction.reply(message.replace('%@player%', `<@${interaction.user.id}>`));
 			return;
 		}
@@ -63,7 +63,7 @@ module.exports = {
 					attacks: `${attacks < 0 ? attacks : `+${attacks}`}`,
 				})
 				.catch((err) => console.error(err));
-			let message = locales.congrat[serverConfig.locale] ?? locales.congrat.default;
+			let message = locales.congrat[serverConfig.locale] ?? locales.congrat['en-US'];
 			interaction.reply(
 				message
 					.replace('%cardEmoji%', card.emoji)
@@ -113,7 +113,7 @@ module.exports = {
 				.catch((err) => console.error(err));
 			msg.edit({ components: [newCatchContainer], flags: MessageFlags.IsComponentsV2 });
 		} else {
-			let nonono = locales.no[serverConfig.locale] ?? locales.no.default;
+			let nonono = locales.no[serverConfig.locale] ?? locales.no['en-US'];
 			interaction.reply(nonono.replace('%guess%', guess).replace('%@player%', `<@${interaction.user.id}>`));
 			return;
 		}

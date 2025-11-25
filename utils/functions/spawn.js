@@ -265,7 +265,7 @@ async function win(client, message) {
 			// V2
 			const catchContainer = new ContainerBuilder()
 				.addTextDisplayComponents((textDisplay) =>
-					textDisplay.setContent(`# ${locales.embed.title[serverConfig.locale] ?? locales.embed.title.default}${is_event ? '\n\n## <:Warning_Blue:1324412874344632341> Event Card' : is_nsfw ? '\n\n## <:Warning:1324412876185796689> Mature content' : ''}`)
+					textDisplay.setContent(`# ${locales.embed.title[serverConfig.locale] ?? locales.embed.title['en-US']}${is_event ? '\n\n## <:Warning_Blue:1324412874344632341> Event Card' : is_nsfw ? '\n\n## <:Warning:1324412876185796689> Mature content' : ''}`)
 				)
 				.addSeparatorComponents((separator) => separator)
 				.addMediaGalleryComponents((mediaGallery) => mediaGallery.addItems((mediaGalleryItem) => mediaGalleryItem.setURL(card.image).setSpoiler(is_nsfw ?? false)))
@@ -276,7 +276,7 @@ async function win(client, message) {
 							.setCustomId('catch')
 							.setDisabled(false)
 							.setEmoji('<:Bug_hunt:1324413128817250457>')
-							.setLabel(locales.button.text[serverConfig.locale] ?? locales.button.text.default)
+							.setLabel(locales.button.text[serverConfig.locale] ?? locales.button.text['en-US'])
 							.setStyle(ButtonStyle.Primary)
 					)
 				);

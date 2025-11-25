@@ -40,14 +40,14 @@ module.exports = {
 		}
 
 		const modal = new ModalBuilder()
-			.setTitle(locales.modal.title[interaction.locale] ?? locales.modal.title.default)
+			.setTitle(locales.modal.title[interaction.locale] ?? locales.modal.title['en-US'])
 			.setCustomId('catch')
 			.setComponents(
 				new ActionRowBuilder().addComponents(
 					new TextInputBuilder()
 						.setCustomId('guess')
-						.setLabel(locales.modal.question[interaction.locale] ?? locales.modal.question.default)
-						.setPlaceholder(locales.modal.placeholder[interaction.locale] ?? locales.modal.placeholder.default)
+						.setLabel(locales.modal.question[interaction.locale] ?? locales.modal.question['en-US'])
+						.setPlaceholder(locales.modal.placeholder[interaction.locale] ?? locales.modal.placeholder['en-US'])
 						.setRequired(true)
 						.setStyle(TextInputStyle.Short)
 				)
