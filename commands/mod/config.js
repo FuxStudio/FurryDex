@@ -56,7 +56,7 @@ module.exports = {
 				.addSeparatorComponents((separator) => separator)
 				//channel
 				.addTextDisplayComponents((textDisplay) => textDisplay.setContent(`## ${locales.channel.title[interaction.locale] ?? locales.channel.title['en-US']}\n${locales.channel.description[interaction.locale] ?? locales.channel.description['en-US']}`))
-				.addActionRowComponents((actionRow) =>
+				.addActionRowComponents((actionRow) => {
 					actionRow.addComponents(
 						new ChannelSelectMenuBuilder()
 							.setCustomId('channel')
@@ -64,10 +64,10 @@ module.exports = {
 							.setDisabled(false)
 							.setMinValues(1)
 							.setMaxValues(1)
-							.setDefaultChannels([serverConfig.spawn_channel])
 							.setChannelTypes([ChannelType.GuildText])
-					)
-				)
+					);
+					if (serverConfig.spawn_channel) actionRow.components[0].setDefaultChannels([serverConfig.spawn_channel]);
+				})
 				.addSeparatorComponents((separator) => separator)
 				//locale
 				.addSectionComponents((section) =>

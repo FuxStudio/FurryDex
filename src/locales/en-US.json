@@ -119,7 +119,7 @@
 				},
 				"locale": {
 					"title": "Locale",
-					"description": "Define the Server language.",
+					"description": "Define the guild language.",
 					"button": "Change language",
 					"placeholder": "Select a language",
 					"list": {
