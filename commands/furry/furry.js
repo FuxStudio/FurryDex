@@ -192,7 +192,7 @@ module.exports = {
 						'cards',
 						async (response) => {
 							cardContainer(client, response.values[0], response.locale).then((container) => {
-								response.update({ embeds: null, components: [container], content: null, flags: MessageFlags.IsComponentsV2 }).catch((err) => {
+								response.update({ embeds: null, components: [container], content: null, flags: [MessageFlags.IsComponentsV2, MessageFlags.SuppressNotifications] }).catch((err) => {
 									console.error(err, response.values[0]);
 								});
 							});
