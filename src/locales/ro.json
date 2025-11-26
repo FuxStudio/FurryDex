@@ -107,7 +107,8 @@
 					"button": {
 						"enable": "Enable",
 						"disable": "Disable"
-					}
+					},
+					"note": "-# ⚠️ The channel need to be defined to be able to enable the spawn."
 				},
 				"channel": {
 					"title": "Channel",
@@ -116,7 +117,7 @@
 				},
 				"locale": {
 					"title": "Locale",
-					"description": "Define the Server language.",
+					"description": "Define the guild language.",
 					"button": "Change language",
 					"placeholder": "Select a language",
 					"list": {

@@ -290,14 +290,15 @@ async function win(client, message) {
 					.where({ message_id: message.id })
 					.catch((err) => console.error(err));
 				setTimeout(async () => {
+					serverConfig = await client
+						.knex('guilds')
+						.update({ last_Card: null })
+						.where({ id: guild.id })
+						.catch((err) => console.error(err));
 					try {
 						let msg = await channel.messages.fetch(m.id);
+						if (!msg) return;
 
-						serverConfig = await client
-							.knex('guilds')
-							.update({ last_Card: null })
-							.where({ id: guild.id })
-							.catch((err) => console.error(err));
 						const newCatchContainer = m.components[0];
 						newCatchContainer.components[4].components[0].data.disabled = true;
 						msg.edit({ components: [newCatchContainer], flags: MessageFlags.IsComponentsV2 }).catch((err) => console.error(err));

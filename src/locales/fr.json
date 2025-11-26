@@ -107,7 +107,8 @@
 					"button": {
 						"enable": "Activé",
 						"disable": "Désactivé"
-					}
+					},
+					"note": "-# ⚠️ The channel need to be defined to be able to enable the spawn."
 				},
 				"channel": {
 					"title": "Salon",
@@ -116,7 +117,7 @@
 				},
 				"locale": {
 					"title": "Langue",
-					"description": "Define the Server language.",
+					"description": "Define the guild language.",
 					"button": "Change language",
 					"placeholder": "Sélectionner une langue",
 					"list": {
