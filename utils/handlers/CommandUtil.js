@@ -7,8 +7,8 @@ const process = require('process');
 const pGlob = promisify(glob);
 
 module.exports = async (client) => {
-	(await pGlob(`./commands/*/*.js`)).map(async (cmdFile) => {
-		const cmd = require(cmdFile.replace('.', process.cwd()));
+	(await glob(`./commands/*/*.js`)).map(async (cmdFile) => {
+		const cmd = require(`${process.cwd()}/${cmdFile}`);
 		if (!cmd.name) return Logger.warn(null, `Nom Non Definie\nFichier: ${cmdFile}`);
 		if (cmd.name == 'furry' && client.config.bot.base_command) cmd.name = client.config.bot.base_command;
 		if (!cmd.description) return Logger.warn(null, `Description Non Definie\nFichier: ${cmdFile}`);
