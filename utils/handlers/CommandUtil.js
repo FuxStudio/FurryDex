@@ -1,10 +1,7 @@
 const { PermissionFlagsBits, ApplicationCommandType, InteractionContextType } = require('discord.js');
 const { glob } = require('glob');
-const { promisify, isNull } = require('util');
-const Logger = require('../Logger');
+const Logger = require('../Logger.js');
 const process = require('process');
-
-const pGlob = promisify(glob);
 
 module.exports = async (client) => {
 	(await glob(`./commands/*/*.js`)).map(async (cmdFile) => {
