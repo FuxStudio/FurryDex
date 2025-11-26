@@ -62,25 +62,6 @@ function write(client, content, tagColor = 'black', bgTagColor, tag, error = fal
 	if (color == 'Black' || color == 'lightBlack') {
 		color = tagColor;
 	}
-
-	if (client && client != null && client != undefined && client.guilds && !error) {
-		require('./functions/DiscordLogger').write(client, { category: 'other', channel: client.config.log.thread.bot }, { tag: tag, color: color, description: '', info: [{ name: 'Write in host console', value: 'Yes' }], content: content });
-	} else if (client && client != null && client != undefined && client.guilds && error) {
-		require('./functions/DiscordLogger').write(
-			client,
-			{ category: 'other', channel: '1284433362307780658' },
-			{
-				tag: tag,
-				color: color,
-				description: '',
-				info: [
-					{ name: 'Write in host console', value: 'Yes' },
-					{ name: 'ERROR', value: content },
-				],
-				content: 'ERREUR',
-			}
-		);
-	}
 }
 
 module.exports = { error, warn, command, event, typo, client, shard, succes, info };

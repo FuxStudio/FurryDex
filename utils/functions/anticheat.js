@@ -1,5 +1,5 @@
 const { EmbedBuilder } = require('discord.js');
-const Logger = require('../Logger');
+const Logger = require('../Logger.js');
 
 function anticheat_start(client) {
 	setTimeout(() => {
