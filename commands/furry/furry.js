@@ -295,28 +295,6 @@ module.exports = {
 								.where({ user_id: response.user.id, id: response.values[0] })
 								.catch((err) => console.error(err));
 
-							require('../../utils/functions/DiscordLogger').writePlayer(client, response.user.id, {
-								tag: 'GIVE',
-								color: 'PINK',
-								description: 'Card Give',
-								info: [
-									{ name: 'to', value: `<@${giveTo.id}>` },
-									{ name: 'card', value: `${response.values[0]}` },
-								],
-								content: 'Give',
-							});
-
-							require('../../utils/functions/DiscordLogger').writePlayer(client, giveTo.id, {
-								tag: 'GIVE',
-								color: 'PINK',
-								description: 'Card Recieved',
-								info: [
-									{ name: 'from', value: `${response.user.id}` },
-									{ name: 'card', value: `${response.values[0]}` },
-								],
-								content: 'Give',
-							});
-
 							let cardO = await client
 								.knex('cards')
 								.first('*')

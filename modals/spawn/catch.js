@@ -71,32 +71,6 @@ module.exports = {
 					.replace('%cardId%', `${ID}, ${live < 0 ? live : `+${live}`}%/${attacks < 0 ? attacks : `+${attacks}`}%`)
 					.replace('%@player%', `<@${interaction.user.id}>`)
 			);
-			require('../../utils/functions/DiscordLogger').writePlayer(client, interaction.user.id, {
-				tag: 'SUCCES',
-				color: 'GREEN',
-				description: 'Card catch',
-				info: [
-					{ name: 'Card', value: `${card.name} (${card.id})` },
-					{ name: 'ID', value: ID },
-					{ name: 'Guild', value: `${interaction.guild.name} (${interaction.guild.id})` },
-					{ name: 'Live', value: `${live < 0 ? live : `+${live}`}` },
-					{ name: 'Attacks', value: `${attacks < 0 ? attacks : `+${attacks}`}` },
-				],
-				content: 'Catch',
-			});
-			require('../../utils/functions/DiscordLogger').writeServer(client, interaction.guild.id, {
-				tag: 'SUCCES',
-				color: 'GREEN',
-				description: 'Card catch',
-				info: [
-					{ name: 'Card', value: `${card.name} (${card.id})` },
-					{ name: 'ID', value: ID },
-					{ name: 'User', value: `${interaction.user.displayName} (${interaction.user.id})` },
-					{ name: 'Live', value: `${live < 0 ? live : `+${live}`}` },
-					{ name: 'Attacks', value: `${attacks < 0 ? attacks : `+${attacks}`}` },
-				],
-				content: 'Catch',
-			});
 			client
 				.knex('guilds')
 				.update({ last_Card: null })
