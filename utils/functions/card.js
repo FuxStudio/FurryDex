@@ -14,9 +14,9 @@ async function cardContainer(client, cardId, locale) {
   });
   //let creator = client.users.fetch(originalCardF.author);
   let species = [];
-  await JSON.parse(originalCardF.species).forEach(async (species_id) => {
+  for (const species_id of JSON.parse(originalCardF.species)) {
     species.push(client.locales.utils.cards.species[species_id][locale] ?? client.locales.utils.cards.species[species_id]['en-US']);
-  });
+  }
 
   let temp_type = client.locales.utils.cards.category[originalCardF.category][locale] ?? client.locales.utils.cards.category[originalCardF.category]['en-US'];
   let type = temp_type.charAt(0).toUpperCase() + temp_type.slice(1);
