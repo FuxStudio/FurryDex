@@ -54,8 +54,9 @@ async function cardContainer(client, cardId, locale) {
     }
   }
 
+  const parsedAuthorId = JSON.parse(originalCardF.authorId);
   let firstText = `👑 • ${locales.container.author[locale] ?? locales.container.author['en-US']}: ${formatArrayToText(
-    (typeof JSON.parse(originalCardF.authorId) == 'number' ? [originalCardF.authorId.toString()] : JSON.parse(originalCardF.authorId)).map((x) => `<@${x}>`)
+    (typeof parsedAuthorId == 'number' ? [parsedAuthorId.toString()] : parsedAuthorId).map((x) => `<@${x}>`)
   )}\n🆔 • ${locales.container.id[locale] ?? locales.container.id['en-US']}: \`#${cardF.id}\`\n🪪 • ${locales.container.name[locale] ?? locales.container.name['en-US']}: \`${name}\`\n📅 • ${
     locales.container.time[locale] ?? locales.container.time['en-US']
   }: ${time(date, TimestampStyles.LongDateTime)} (${time(date, TimestampStyles.RelativeTime)})\n🔧 • ${locales.container.type[locale] ?? locales.container.type['en-US']}: \`${type}\`\n🐺 • ${
