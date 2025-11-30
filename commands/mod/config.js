@@ -102,14 +102,10 @@ module.exports = {
     await updateContainer();
 
     let msg = await interaction.reply({ components: [container], flags: [MessageFlags.Ephemeral, MessageFlags.IsComponentsV2] });
-    let loop = true;
-    while (loop) {
-      let response = await msg.awaitMessageComponent().catch();
+    let response = true;
+    while (!!response && !!msg) {
+      response = await msg.awaitMessageComponent().catch();
 
-      if (!response) {
-        loop = false;
-        return;
-      }
       if (!response.customId) return;
       if (response.customId == 'enable') {
         if (channel) {

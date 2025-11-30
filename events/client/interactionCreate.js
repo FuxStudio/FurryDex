@@ -17,7 +17,7 @@ module.exports = {
       if (cmd.permissions) {
         if (!interaction.member.permissions.has([cmd.permissions]))
           return interaction.reply({
-            content: "You dosn't have the nescessary permission",
+            content: "You doesn't have the necessary permission",
             flags: MessageFlags.Ephemeral,
           });
       }

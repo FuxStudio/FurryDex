@@ -1,6 +1,8 @@
 const { ButtonStyle, ButtonBuilder, MessageFlags, ContainerBuilder } = require('discord.js');
 const Logger = require('../Logger.js');
 
+const MEMBER_SPAWN_DIVIDEND = 0.3;
+
 async function isXMinutesPassed(message, client) {
   try {
     if (message.content.length <= 3) return;
@@ -76,10 +78,8 @@ async function isXMinutesPassed(message, client) {
       }
 
       if (memberCount < 50) {
-        var dividend = 0.3;
-        // Why Ichkomme ? don't ask me, I don't know
-        let ichkomme = Math.random();
-        if (ichkomme < dividend) {
+        let randomValue = Math.random();
+        if (randomValue < MEMBER_SPAWN_DIVIDEND) {
           client.logger.log('info', `\ Card spawning is not allowed (< 50 member check) (${memberCount}).`);
 
           return false;
@@ -92,10 +92,8 @@ async function isXMinutesPassed(message, client) {
         return false;
       }
 
-      var dividend = 0.3;
-      // Why Ichkomme ? don't ask me, I don't know
-      let ichkomme = Math.random();
-      if (ichkomme < dividend) {
+      let randomValue = Math.random();
+      if (randomValue < MEMBER_SPAWN_DIVIDEND) {
         client.logger.log('info', `\ Card spawning is not allowed (< 50 member check).`);
 
         return false;
@@ -204,9 +202,10 @@ async function win(client, message) {
 
     // Filtre les cartes en vérifiant si l'authorId (converti en chaîne) est présent parmi les membres
     let cartes;
+    let parsedAuthorId = JSON.parse(carte.authorId);
 
     if (!(serverConfig.premium == 1 && serverConfig.spawnAllCards == 1) || cards.length == 1) {
-      cartes = cards.filter((carte) => membres.some((member) => (typeof JSON.parse(carte.authorId) == 'number' ? [carte.authorId.toString()] : JSON.parse(carte.authorId)).includes(member.id)));
+      cartes = cards.filter((carte) => membres.some((member) => (typeof parsedAuthorId == 'number' ? [carte.authorId.toString()] : parsedAuthorId).includes(member.id)));
     } else {
       cartes = cards;
     }

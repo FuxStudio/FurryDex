@@ -56,12 +56,6 @@ function write(client, content, tagColor = 'black', bgTagColor, tag, error = fal
   const item = format.replace('{tstamp}', chalk.gray(timestamp)).replace('{tag}', chalk[bgTagColor][tagColor](logTag)).replace('{text}', chalk.white(content));
 
   stream.write(item + '\n');
-
-  let color = bgTagColor.replace('bg', 'light');
-
-  if (color == 'Black' || color == 'lightBlack') {
-    color = tagColor;
-  }
 }
 
 module.exports = { error, warn, command, event, typo, client, shard, succes, info };
