@@ -1,6 +1,5 @@
 const { EmbedBuilder, time, TimestampStyles, ContainerBuilder, AttachmentBuilder, MessageFlags } = require('discord.js');
 const Logger = require('../Logger');
-const { text } = require('express');
 
 async function cardContainer(client, cardId, locale) {
   const locales = client.locales.utils.function.cards;
