@@ -1,6 +1,5 @@
-const { EmbedBuilder, ButtonStyle, ActionRowBuilder, ButtonBuilder, MessageFlags, ContainerBuilder } = require('discord.js');
+const { ButtonStyle, ButtonBuilder, MessageFlags, ContainerBuilder } = require('discord.js');
 const Logger = require('../Logger.js');
-const { cli } = require('winston/lib/winston/config/index.js');
 
 async function isXMinutesPassed(message, client) {
   try {
@@ -68,23 +67,39 @@ async function isXMinutesPassed(message, client) {
     }
 
     if (memberCount && !bypass) {
-      if (memberCount < 100 && !bypass) {
-        if (serverConfig['card/message'] > serverConfig['cmmax'] * 100) return false && client.logger.log('info', `\ Card spawning is not allowed (< 100 member check) (${memberCount}).`);
+      if (memberCount < 100) {
+        if (serverConfig['card/message'] > serverConfig['cmmax'] * 100) {
+          client.logger.log('info', `\ Card spawning is not allowed (< 100 member check) (${memberCount}).`);
+
+          return false;
+        }
       }
 
-      if (memberCount < 50 && !bypass) {
+      if (memberCount < 50) {
         var dividend = 0.3;
         // Why Ichkomme ? don't ask me, I don't know
         let ichkomme = Math.random();
-        if (ichkomme < dividend) return false && client.logger.log('info', `\ Card spawning is not allowed (< 50 member check) (${memberCount}).`);
+        if (ichkomme < dividend) {
+          client.logger.log('info', `\ Card spawning is not allowed (< 50 member check) (${memberCount}).`);
+
+          return false;
+        }
       }
     } else if (!bypass) {
-      if (serverConfig['card/message'] > serverConfig['cmmax'] * 100) return false && client.logger.log('info', `\ Card spawning is not allowed (< 100 member check).`);
+      if (serverConfig['card/message'] > serverConfig['cmmax'] * 100) {
+        client.logger.log('info', `\ Card spawning is not allowed (< 100 member check).`);
+
+        return false;
+      }
 
       var dividend = 0.3;
       // Why Ichkomme ? don't ask me, I don't know
       let ichkomme = Math.random();
-      if (ichkomme < dividend) return false && client.logger.log('info', `\ Card spawning is not allowed (< 50 member check).`);
+      if (ichkomme < dividend) {
+        client.logger.log('info', `\ Card spawning is not allowed (< 50 member check).`);
+
+        return false;
+      }
     }
 
     if (serverConfig.last_Card != null) {
@@ -93,7 +108,8 @@ async function isXMinutesPassed(message, client) {
           content: 'Sorry, the last card is not catch',
           flags: MessageFlags.Ephemeral,
         });
-      return false && client.logger.log('info', `\ Card spawning is not allowed (last card not caught).`); // Le bot n'est pas activé pour ce serveur
+      client.logger.log('info', `\ Card spawning is not allowed (last card not caught).`);
+      return false;
     }
 
     let in1Hour = new Date();
@@ -116,11 +132,12 @@ async function isXMinutesPassed(message, client) {
       .where({ id: message.guild.id })
       .catch((err) => console.error(err));
 
-    // Récupérer le nombre de membres dans le serveur
-    //const memberCount = message.guild.memberCount;
+    /*
+    const memberCount = message.guild.memberCount;
 
     // Calculer le temps en minutes en fonction du nombre de membres
-    //serverConfig.time = parseInt(serverConfig.time - (Math.floor(Math.random() * (250 - 10) + 10) * (message.content.length / 15)) / memberCount); //FIXME Don't calculate the good time
+    serverConfig.time = parseInt(serverConfig.time - (Math.floor(Math.random() * (250 - 10) + 10) * (message.content.length / 15)) / memberCount); //FIXME Don't calculate the good time
+    */
 
     let dateFirstCheck10 = new Date(serverConfig.First_Check);
     dateFirstCheck10.setMinutes(dateFirstCheck10.getMinutes() + 10);
@@ -181,7 +198,6 @@ async function win(client, message) {
     .select('*')
     .catch((err) => console.error(err));
 
-  let i = 1;
   try {
     // Récupère tous les membres du serveur dans le cache (en cas de besoin, fetch pour actualiser le cache)
     const membres = await guild.members.fetch();

@@ -1,6 +1,4 @@
 const Logger = require('../../utils/Logger');
-const { REST, Routes } = require('discord.js');
-const fs = require('fs');
 
 let activity = 'count my card ...';
 

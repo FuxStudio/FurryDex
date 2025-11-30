@@ -1,7 +1,8 @@
+/* Removed in favor of performance improvements
+
 const { EmbedBuilder } = require('discord.js');
 const Logger = require('../Logger');
 
-/*
 function leaderboard_start(client) {
 	leaderboard_update(client);
 	setInterval(async () => {

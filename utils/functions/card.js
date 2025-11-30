@@ -1,6 +1,5 @@
-const { EmbedBuilder, time, TimestampStyles, ContainerBuilder, AttachmentBuilder, MessageFlags } = require('discord.js');
+const { time, TimestampStyles, ContainerBuilder } = require('discord.js');
 const Logger = require('../Logger');
-const { text } = require('express');
 
 async function cardContainer(client, cardId, locale) {
   const locales = client.locales.utils.function.cards;
@@ -14,9 +13,9 @@ async function cardContainer(client, cardId, locale) {
   });
   //let creator = client.users.fetch(originalCardF.author);
   let species = [];
-  await JSON.parse(originalCardF.species).forEach(async (species_id) => {
+  for (const species_id of JSON.parse(originalCardF.species)) {
     species.push(client.locales.utils.cards.species[species_id][locale] ?? client.locales.utils.cards.species[species_id]['en-US']);
-  });
+  }
 
   let temp_type = client.locales.utils.cards.category[originalCardF.category][locale] ?? client.locales.utils.cards.category[originalCardF.category]['en-US'];
   let type = temp_type.charAt(0).toUpperCase() + temp_type.slice(1);
@@ -54,13 +53,13 @@ async function cardContainer(client, cardId, locale) {
     }
   }
 
-  let firstText = `👑 • ${locales.container.author[locale] ?? locales.container.author['en-US']}: ${formatArrayToText(
-    (typeof JSON.parse(originalCardF.authorId) == 'number' ? [originalCardF.authorId.toString()] : JSON.parse(originalCardF.authorId)).map((x) => `<@${x}>`)
-  )}\n🆔 • ${locales.container.id[locale] ?? locales.container.id['en-US']}: \`#${cardF.id}\`\n🪪 • ${locales.container.name[locale] ?? locales.container.name['en-US']}: \`${name}\`\n📅 • ${
-    locales.container.time[locale] ?? locales.container.time['en-US']
-  }: ${time(date, TimestampStyles.LongDateTime)} (${time(date, TimestampStyles.RelativeTime)})\n🔧 • ${locales.container.type[locale] ?? locales.container.type['en-US']}: \`${type}\`\n🐺 • ${
-    locales.container.species[locale] ?? locales.container.species['en-US']
-  }: \`${formatArrayToText(species)}\`${
+  const parsedAuthorId = JSON.parse(originalCardF.authorId);
+  let firstText = `👑 • ${locales.container.author[locale] ?? locales.container.author['en-US']}: ${formatArrayToText((typeof parsedAuthorId == 'number' ? [parsedAuthorId.toString()] : parsedAuthorId).map((x) => `<@${x}>`))}\n🆔 • ${
+    locales.container.id[locale] ?? locales.container.id['en-US']
+  }: \`#${cardF.id}\`\n🪪 • ${locales.container.name[locale] ?? locales.container.name['en-US']}: \`${name}\`\n📅 • ${locales.container.time[locale] ?? locales.container.time['en-US']}: ${time(date, TimestampStyles.LongDateTime)} (${time(
+    date,
+    TimestampStyles.RelativeTime
+  )})\n🔧 • ${locales.container.type[locale] ?? locales.container.type['en-US']}: \`${type}\`\n🐺 • ${locales.container.species[locale] ?? locales.container.species['en-US']}: \`${formatArrayToText(species)}\`${
     originalCardF.birthday
       ? `\n✨ • ${locales.container.birthday[locale] ?? locales.container.birthday['en-US']}: ${time(new Date(originalCardF.birthday), TimestampStyles.ShortDateTime)} (${time(new Date(originalCardF.birthday), TimestampStyles.RelativeTime)})`
       : ''
