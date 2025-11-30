@@ -67,9 +67,9 @@ async function cardContainer(client, cardId, locale) {
   }${originalCardF.gender ? `\n👤 • ${locales.container.gender[locale] ?? locales.container.gender['en-US']}: \`${originalCardF.gender}\` ${originalCardF.sexuality ? `\`(${originalCardF.sexuality})\`` : ''}` : ''}`;
 
   let secondText = `❤️ • ${locales.container.live[locale] ?? locales.container.live['en-US']}: \`${
-    cardF.live < 0 ? originalCardF.live - (originalCardF.live * cardF.live.replace('-', '')) / 100 : originalCardF.live + (originalCardF.live * cardF.live) / 100
+    cardF.live < 0 ? originalCardF.live - (originalCardF.live * Math.abs(cardF.live)) / 100 : originalCardF.live + (originalCardF.live * cardF.live) / 100
   }%\` (\`${cardF.live}\%\`)\n⚔️ • ${locales.container.attacks[locale] ?? locales.container.attacks['en-US']}: \`${
-    cardF.attacks < 0 ? originalCardF.attacks - (originalCardF.attacks * cardF.attacks.replace('-', '')) / 100 : originalCardF.attacks + (originalCardF.attacks * cardF.attacks) / 100
+    cardF.attacks < 0 ? originalCardF.attacks - (originalCardF.attacks * Math.abs(cardF.attacks)) / 100 : originalCardF.attacks + (originalCardF.attacks * cardF.attacks) / 100
   }%\` (\`${cardF.attacks}\%\`)${
     cardF.gived != 0
       ? `\n❇️ • ${locales.container.giveBy[locale] ?? locales.container.giveBy['en-US']}: <@${cardF.gived}> the ${time(new Date(cardF.giveDate), TimestampStyles.LongDateTime)} (${time(new Date(cardF.giveDate), TimestampStyles.RelativeTime)})`
