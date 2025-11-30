@@ -185,7 +185,6 @@ async function win(client, message) {
     .where({ id: message.guild.id })
     .catch((err) => console.error(err));
   const guild = message.guild;
-  const channel = await guild.channels.cache.get(serverConfig.spawn_channel);
 
   let card;
 
@@ -255,7 +254,7 @@ async function win(client, message) {
     if (card.nsfw) is_nsfw = true;
     if (card.event) is_event = true;
 
-    setTimeout(() => {
+    setTimeout(async () => {
       const catchContainer = new ContainerBuilder()
         .addTextDisplayComponents((textDisplay) =>
           textDisplay.setContent(`# ${locales.embed.title[serverConfig.locale] ?? locales.embed.title['en-US']}${is_event ? '\n\n## <:Warning_Blue:1324412874344632341> Event Card' : is_nsfw ? '\n\n## <:Warning:1324412876185796689> Mature content' : ''}`)
@@ -273,7 +272,7 @@ async function win(client, message) {
               .setStyle(ButtonStyle.Primary)
           )
         );
-
+      const channel = await guild.channels.cache.get(serverConfig.spawn_channel);
       channel.send({ components: [catchContainer], flags: MessageFlags.IsComponentsV2 }).then(async (m) => {
         client.logger.log('info', `\ Card spawned: ${card.name} (${card.id}) in ${guild.name} (${guild.id})`);
         let channel = await guild.channels.cache.get(m.channelId);
