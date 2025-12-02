@@ -1,15 +1,20 @@
-const yaml = require('js-yaml');
-const fs = require('fs');
+const yaml = require("js-yaml");
+const fs = require("fs");
 let config = {};
 
 try {
-  const doc = yaml.load(fs.readFileSync('./config/config.yaml', 'utf8'));
+  const doc = yaml.load(fs.readFileSync("./config/config.yaml", "utf8"));
   config = doc;
 } catch (e) {
   console.log(e);
 }
 
-const { Client, GatewayIntentBits, Partials, ActivityType } = require('discord.js');
+const {
+  Client,
+  GatewayIntentBits,
+  Partials,
+  ActivityType,
+} = require("discord.js");
 
 const client = new Client({
   intents: [
@@ -36,30 +41,41 @@ const client = new Client({
     GatewayIntentBits.GuildModeration,
     GatewayIntentBits.GuildVoiceStates,
   ],
-  partials: [Partials.User, Partials.Channel, Partials.GuildMember, Partials.Message, Partials.Reaction, Partials.GuildScheduledEvent, Partials.ThreadMember],
+  partials: [
+    Partials.User,
+    Partials.Channel,
+    Partials.GuildMember,
+    Partials.Message,
+    Partials.Reaction,
+    Partials.GuildScheduledEvent,
+    Partials.ThreadMember,
+  ],
 });
 
 client.login(config.bot.token);
-knex = require('knex')(config.database);
+knex = require("knex")(config.database);
 
-client.on('ready', () => {
-  console.log('Bot is ready');
+client.on("ready", () => {
+  console.log("Bot is ready");
 
-  client.user.setPresence({ activities: [{ name: 'MAINTENANCE :/', type: ActivityType.Custom }], status: 'dnd' });
+  client.user.setPresence({
+    activities: [{ name: "MAINTENANCE :/", type: ActivityType.Custom }],
+    status: "dnd",
+  });
 
   TEST();
 });
 
 async function TEST() {
-  guild = client.guilds.cache.get('1235970684556021890');
+  guild = client.guilds.cache.get("1235970684556021890");
 
-  let userId = '643835326485233716';
+  let userId = "643835326485233716";
   console.log(
-    await knex('user_cards')
-      .select('*')
+    await knex("user_cards")
+      .select("*")
       .where({ user_id: userId })
-      .distinct('card_id')
-      .catch((err) => {
+      .distinct("card_id")
+      .catch(err => {
         console.error(err);
       })
   );

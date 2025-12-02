@@ -1,8 +1,8 @@
-const { InteractionContextType } = require('discord.js');
+const { InteractionContextType } = require("discord.js");
 module.exports = {
-  name: 'cards',
-  description: 'base cards command',
-  category: 'cards',
+  name: "cards",
+  description: "base cards command",
+  category: "cards",
   fullyTranslated: true,
   permissions: null,
   contexts: [InteractionContextType.BotDM, InteractionContextType.Guild],

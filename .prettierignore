@@ -1,4 +1,4 @@
-# Files we dont want to track in Git
+# Files we dont want to manage
 .vscode/
 
 # FD - Logs
