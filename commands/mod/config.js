@@ -1,10 +1,19 @@
-const { StringSelectMenuBuilder, PermissionFlagsBits, MessageFlags, ContainerBuilder, ButtonStyle, ButtonBuilder, ChannelSelectMenuBuilder, ChannelType } = require('discord.js');
+const {
+  StringSelectMenuBuilder,
+  PermissionFlagsBits,
+  MessageFlags,
+  ContainerBuilder,
+  ButtonStyle,
+  ButtonBuilder,
+  ChannelSelectMenuBuilder,
+  ChannelType,
+} = require("discord.js");
 
 module.exports = {
-  name: 'config',
-  description: 'base config command',
+  name: "config",
+  description: "base config command",
   permissions: PermissionFlagsBits.Administrator,
-  category: 'admin',
+  category: "admin",
   fullyTranslated: true,
   run: (client, message, args) => {},
   runSlash: async (client, interaction) => {
@@ -13,84 +22,130 @@ module.exports = {
     let channel = null;
     async function updateContainer() {
       let serverConfig = await client
-        .knex('guilds')
-        .first('*')
+        .knex("guilds")
+        .first("*")
         .where({ id: interaction.guild.id })
-        .catch((err) => console.error(err));
+        .catch(err => console.error(err));
       if (!serverConfig) {
-        await client.knex('guilds').insert({
+        await client.knex("guilds").insert({
           id: interaction.guild.id,
         });
         serverConfig = await client
-          .knex('guilds')
-          .first('*')
+          .knex("guilds")
+          .first("*")
           .where({ id: interaction.guild.id })
-          .catch((err) => console.error(err));
+          .catch(err => console.error(err));
       }
 
-      channel = await interaction.guild.channels.cache.get(serverConfig.spawn_channel);
+      channel = await interaction.guild.channels.cache.get(
+        serverConfig.spawn_channel
+      );
 
       container = new ContainerBuilder()
         .setAccentColor([80, 200, 120])
-        .addTextDisplayComponents((textDisplay) => textDisplay.setContent(`# ${locales.title[interaction.locale] ?? locales.title['en-US']}`))
-        .addSeparatorComponents((separator) => separator)
+        .addTextDisplayComponents(textDisplay =>
+          textDisplay.setContent(
+            `# ${locales.title[interaction.locale] ?? locales.title["en-US"]}`
+          )
+        )
+        .addSeparatorComponents(separator => separator)
         //enable
-        .addSectionComponents((section) =>
+        .addSectionComponents(section =>
           section
-            .addTextDisplayComponents((textDisplay) =>
+            .addTextDisplayComponents(textDisplay =>
               textDisplay.setContent(
-                `## ${locales.enable.title[interaction.locale] ?? locales.enable.title['en-US']}\n${locales.enable.description[interaction.locale] ?? locales.enable.description['en-US']}${
-                  !channel ? `\n**${locales.enable.note[interaction.locale] ?? locales.enable.note['en-US']}` : ''
+                `## ${locales.enable.title[interaction.locale] ?? locales.enable.title["en-US"]}\n${locales.enable.description[interaction.locale] ?? locales.enable.description["en-US"]}${
+                  !channel
+                    ? `\n**${locales.enable.note[interaction.locale] ?? locales.enable.note["en-US"]}`
+                    : ""
                 }`
               )
             )
-            .setButtonAccessory((button) =>
+            .setButtonAccessory(button =>
               button
-                .setCustomId(serverConfig.enabled == 1 ? 'disable' : 'enable')
-                .setLabel(serverConfig.enabled == 1 ? locales.enable.button.disable[interaction.locale] ?? locales.enable.button.disable['en-US'] : locales.enable.button.enable[interaction.locale] ?? locales.enable.button.enable['en-US'])
-                .setStyle(serverConfig.enabled == 1 ? ButtonStyle.Danger : ButtonStyle.Success)
+                .setCustomId(serverConfig.enabled == 1 ? "disable" : "enable")
+                .setLabel(
+                  serverConfig.enabled == 1
+                    ? (locales.enable.button.disable[interaction.locale] ??
+                        locales.enable.button.disable["en-US"])
+                    : (locales.enable.button.enable[interaction.locale] ??
+                        locales.enable.button.enable["en-US"])
+                )
+                .setStyle(
+                  serverConfig.enabled == 1
+                    ? ButtonStyle.Danger
+                    : ButtonStyle.Success
+                )
                 .setDisabled(channel ? false : true)
             )
         )
-        .addSeparatorComponents((separator) => separator)
+        .addSeparatorComponents(separator => separator)
         //channel
-        .addTextDisplayComponents((textDisplay) => textDisplay.setContent(`## ${locales.channel.title[interaction.locale] ?? locales.channel.title['en-US']}\n${locales.channel.description[interaction.locale] ?? locales.channel.description['en-US']}`))
-        .addActionRowComponents((actionRow) => {
+        .addTextDisplayComponents(textDisplay =>
+          textDisplay.setContent(
+            `## ${locales.channel.title[interaction.locale] ?? locales.channel.title["en-US"]}\n${locales.channel.description[interaction.locale] ?? locales.channel.description["en-US"]}`
+          )
+        )
+        .addActionRowComponents(actionRow => {
           actionRow.addComponents(
             new ChannelSelectMenuBuilder()
-              .setCustomId('channel')
-              .setPlaceholder(locales.channel.placeholder[interaction.locale] ?? locales.channel.placeholder['en-US'])
+              .setCustomId("channel")
+              .setPlaceholder(
+                locales.channel.placeholder[interaction.locale] ??
+                  locales.channel.placeholder["en-US"]
+              )
               .setDisabled(false)
               .setMinValues(1)
               .setMaxValues(1)
               .setChannelTypes([ChannelType.GuildText])
           );
-          if (serverConfig.spawn_channel) actionRow.components[0].setDefaultChannels([serverConfig.spawn_channel]);
+          if (serverConfig.spawn_channel)
+            actionRow.components[0].setDefaultChannels([
+              serverConfig.spawn_channel,
+            ]);
           return actionRow;
         })
-        .addSeparatorComponents((separator) => separator)
+        .addSeparatorComponents(separator => separator)
         //locale
-        .addSectionComponents((section) =>
+        .addSectionComponents(section =>
           section
-            .addTextDisplayComponents((textDisplay) => textDisplay.setContent(`## ${locales.locale.title[interaction.locale] ?? locales.locale.title['en-US']}\n${locales.locale.description[interaction.locale] ?? locales.locale.description['en-US']}`))
-            .setButtonAccessory((button) => button.setCustomId('actual-locale').setLabel(`${serverConfig.locale}`.toUpperCase()).setEmoji({ name: '🌐' }).setStyle(ButtonStyle.Secondary).setDisabled(false))
+            .addTextDisplayComponents(textDisplay =>
+              textDisplay.setContent(
+                `## ${locales.locale.title[interaction.locale] ?? locales.locale.title["en-US"]}\n${locales.locale.description[interaction.locale] ?? locales.locale.description["en-US"]}`
+              )
+            )
+            .setButtonAccessory(button =>
+              button
+                .setCustomId("actual-locale")
+                .setLabel(`${serverConfig.locale}`.toUpperCase())
+                .setEmoji({ name: "🌐" })
+                .setStyle(ButtonStyle.Secondary)
+                .setDisabled(false)
+            )
         )
-        .addActionRowComponents((actionRow) =>
+        .addActionRowComponents(actionRow =>
           actionRow.addComponents(
             new StringSelectMenuBuilder()
-              .setCustomId('locale')
-              .setPlaceholder(locales.locale.placeholder[interaction.locale] ?? locales.locale.placeholder['en-US'])
+              .setCustomId("locale")
+              .setPlaceholder(
+                locales.locale.placeholder[interaction.locale] ??
+                  locales.locale.placeholder["en-US"]
+              )
               .setDisabled(false)
               .setMinValues(1)
               .setMaxValues(1)
-              .setOptions(localeOptions(locales, serverConfig.locale, interaction.locale))
+              .setOptions(
+                localeOptions(locales, serverConfig.locale, interaction.locale)
+              )
           )
         )
-        .addActionRowComponents((actionRow) =>
+        .addActionRowComponents(actionRow =>
           actionRow.addComponents(
             new ButtonBuilder()
-              .setCustomId('auto-locale')
-              .setLabel(`${locales.locale.button[interaction.locale] ?? locales.locale.button['en-US']} [${`${interaction.guild.preferredLocale ? interaction.guild.preferredLocale : interaction.locale}`.toUpperCase()}]`)
+              .setCustomId("auto-locale")
+              .setLabel(
+                `${locales.locale.button[interaction.locale] ?? locales.locale.button["en-US"]} [${`${interaction.guild.preferredLocale ? interaction.guild.preferredLocale : interaction.locale}`.toUpperCase()}]`
+              )
               .setStyle(ButtonStyle.Primary)
           )
         );
@@ -101,55 +156,64 @@ module.exports = {
 
     await updateContainer();
 
-    let msg = await interaction.reply({ components: [container], flags: [MessageFlags.Ephemeral, MessageFlags.IsComponentsV2] });
+    let msg = await interaction.reply({
+      components: [container],
+      flags: [MessageFlags.Ephemeral, MessageFlags.IsComponentsV2],
+    });
     let response = true;
     while (!!response && !!msg) {
       response = await msg.awaitMessageComponent().catch();
 
       if (!response.customId) return;
-      if (response.customId == 'enable') {
+      if (response.customId == "enable") {
         if (channel) {
           await client
-            .knex('guilds')
+            .knex("guilds")
             .update({ enabled: true })
             .where({ id: interaction.guild.id })
-            .catch((err) => console.error(err));
+            .catch(err => console.error(err));
         } else {
           //disable bot
           await client
-            .knex('guilds')
+            .knex("guilds")
             .update({ enabled: false })
             .where({ id: interaction.guild.id })
-            .catch((err) => console.error(err));
+            .catch(err => console.error(err));
         }
-      } else if (response.customId == 'disable') {
+      } else if (response.customId == "disable") {
         await client
-          .knex('guilds')
+          .knex("guilds")
           .update({ enabled: false })
           .where({ id: interaction.guild.id })
-          .catch((err) => console.error(err));
-      } else if (response.customId == 'channel') {
+          .catch(err => console.error(err));
+      } else if (response.customId == "channel") {
         await client
-          .knex('guilds')
+          .knex("guilds")
           .update({ spawn_channel: response.values[0] })
           .where({ id: interaction.guild.id })
-          .catch((err) => console.error(err));
-      } else if (response.customId == 'auto-locale') {
+          .catch(err => console.error(err));
+      } else if (response.customId == "auto-locale") {
         await client
-          .knex('guilds')
-          .update({ locale: interaction.guild.preferredLocale ? interaction.guild.preferredLocale : interaction.locale })
+          .knex("guilds")
+          .update({
+            locale: interaction.guild.preferredLocale
+              ? interaction.guild.preferredLocale
+              : interaction.locale,
+          })
           .where({ id: interaction.guild.id })
-          .catch((err) => console.error(err));
-      } else if (response.customId == 'locale') {
+          .catch(err => console.error(err));
+      } else if (response.customId == "locale") {
         await client
-          .knex('guilds')
+          .knex("guilds")
           .update({ locale: response.values[0] })
           .where({ id: interaction.guild.id })
-          .catch((err) => console.error(err));
+          .catch(err => console.error(err));
       }
 
       await updateContainer();
-      msg = await response.update({ components: [container] }).catch((err) => console.error(err));
+      msg = await response
+        .update({ components: [container] })
+        .catch(err => console.error(err));
     }
 
     /*
@@ -209,30 +273,30 @@ module.exports = {
 function localeOptions(locales, serverLocale, interactionLocale) {
   let lang = locales.locale.list;
   let flag = {
-    de: '🇩🇪',
-    'en-US': '🇺🇸',
-    es: '🇪🇸',
-    fr: '🇫🇷',
-    it: '🇮🇹',
-    du: '🇳🇱',
-    no: '🇳🇴',
-    pl: '🇵🇱',
-    'pt-BR': '🇧🇷',
-    ro: '🇷🇴',
-    fi: '🇫🇮',
-    'sv-SE': '🇸🇪',
-    bg: '🇧🇬',
-    ru: '🇷🇺',
-    uk: '🇺🇦',
-    'zh-CN': '🇨🇳',
-    ja: '🇯🇵',
-    ko: '🇰🇷',
+    de: "🇩🇪",
+    "en-US": "🇺🇸",
+    es: "🇪🇸",
+    fr: "🇫🇷",
+    it: "🇮🇹",
+    du: "🇳🇱",
+    no: "🇳🇴",
+    pl: "🇵🇱",
+    "pt-BR": "🇧🇷",
+    ro: "🇷🇴",
+    fi: "🇫🇮",
+    "sv-SE": "🇸🇪",
+    bg: "🇧🇬",
+    ru: "🇷🇺",
+    uk: "🇺🇦",
+    "zh-CN": "🇨🇳",
+    ja: "🇯🇵",
+    ko: "🇰🇷",
   };
-  return Array.from(Object.keys(lang)).map((key) => {
+  return Array.from(Object.keys(lang)).map(key => {
     return {
-      label: lang[key][interactionLocale] ?? lang[key]['en-US'],
+      label: lang[key][interactionLocale] ?? lang[key]["en-US"],
       value: key,
-      emoji: { name: flag[key] ? flag[key] : '🌐' },
+      emoji: { name: flag[key] ? flag[key] : "🌐" },
       default: key == serverLocale,
     };
   });

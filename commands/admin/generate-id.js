@@ -1,9 +1,9 @@
-const { PermissionFlagsBits } = require('discord.js');
+const { PermissionFlagsBits } = require("discord.js");
 
 module.exports = {
-  name: 'generate-id',
-  description: 'Generate an ID for card',
-  category: 'admin',
+  name: "generate-id",
+  description: "Generate an ID for card",
+  category: "admin",
   permissions: PermissionFlagsBits.Administrator,
   ownerOnly: true,
   run: (client, message, args) => {},
