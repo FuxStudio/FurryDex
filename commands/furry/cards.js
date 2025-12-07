@@ -7,5 +7,7 @@ module.exports = {
   permissions: null,
   contexts: [InteractionContextType.BotDM, InteractionContextType.Guild],
   run: (client, message, args) => {},
-  runSlash: async (client, interaction) => {},
+  runSlash: async (client, interaction) => {
+    interaction.reply(`Card creation is not ready yet. Please join the Discord server for create your card. (Check BIO)`);
+  },
 };
