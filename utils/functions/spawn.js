@@ -343,31 +343,24 @@ async function win(client, message) {
         const channel = await guild.channels.cache.get(
           serverConfig.spawn_channel
         );
-        channel
-          .send({
-            components: [catchContainer],
-            flags: MessageFlags.IsComponentsV2,
-          })
-          .then(async m => {
-            client.logger.log(
-              "info",
-              `\ Card spawned: ${card.name} (${card.id}) in ${guild.name} (${guild.id})`
-            );
-            let channel = await guild.channels.cache.get(m.channelId);
-            client
-              .knex("anti-cheat_messages")
-              .update({ spawnMessage: m.id })
-              .where({ message_id: message.id })
-              .catch(err => console.error(err));
-            setTimeout(async () => {
-              serverConfig = await client
-                .knex("guilds")
-                .update({ last_Card: null })
-                .where({ id: guild.id })
-                .catch(err => console.error(err));
-              try {
-                let msg = await channel.messages.fetch(m.id);
-                if (!msg) return;
+      if (!channel) return;
+      channel.send({ components: [catchContainer], flags: MessageFlags.IsComponentsV2 }).then(async (m) => {
+        client.logger.log('info', `\ Card spawned: ${card.name} (${card.id}) in ${guild.name} (${guild.id})`);
+        let channel = await guild.channels.cache.get(m.channelId);
+        client
+          .knex('anti-cheat_messages')
+          .update({ spawnMessage: m.id })
+          .where({ message_id: message.id })
+          .catch((err) => console.error(err));
+        setTimeout(async () => {
+          serverConfig = await client
+            .knex('guilds')
+            .update({ last_Card: null })
+            .where({ id: guild.id })
+            .catch((err) => console.error(err));
+          try {
+            let msg = await channel.messages.fetch(m.id);
+            if (!msg) return;
 
                 const newCatchContainer = m.components[0];
                 newCatchContainer.components[4].components[0].data.disabled = true;
