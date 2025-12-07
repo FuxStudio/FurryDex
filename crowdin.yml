@@ -1,4 +1,4 @@
-project_id: '692655'
+project_id: "692655"
 files:
   - source: /src/locales/en-US.json
     translation: /src/locales/%two_letters_code%.json

@@ -1,4 +1,4 @@
 module.exports = {
-	name: 'giveTo',
-	async run(client, interaction) {},
+  name: "giveTo",
+  async run(client, interaction) {},
 };

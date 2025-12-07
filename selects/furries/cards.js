@@ -1,4 +1,4 @@
 module.exports = {
-	name: 'cards',
-	run(client, interaction) {},
+  name: "cards",
+  run(client, interaction) {},
 };
