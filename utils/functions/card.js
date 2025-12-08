@@ -63,30 +63,71 @@ async function cardContainer(client, cardId, locale) {
   }
 
   const parsedAuthorId = JSON.parse(originalCardF.authorId);
-  let firstText = `👑 • ${locales.container.author[locale] ?? locales.container.author["en-US"]}: ${formatArrayToText((typeof parsedAuthorId == "number" ? [parsedAuthorId.toString()] : parsedAuthorId).map(x => `<@${x}>`))}\n🆔 • ${
+  let firstText = `👑 • ${
+    locales.container.author[locale] ?? locales.container.author["en-US"]
+  }: ${formatArrayToText(
+    (typeof parsedAuthorId == "number"
+      ? [parsedAuthorId.toString()]
+      : parsedAuthorId
+    ).map(x => `<@${x}>`)
+  )}\n🆔 • ${
     locales.container.id[locale] ?? locales.container.id["en-US"]
-  }: \`#${cardF.id}\`\n🪪 • ${locales.container.name[locale] ?? locales.container.name["en-US"]}: \`${name}\`\n📅 • ${locales.container.time[locale] ?? locales.container.time["en-US"]}: ${time(date, TimestampStyles.LongDateTime)} (${time(
+  }: \`#${cardF.id}\`\n🪪 • ${
+    locales.container.name[locale] ?? locales.container.name["en-US"]
+  }: \`${name}\`\n📅 • ${
+    locales.container.time[locale] ?? locales.container.time["en-US"]
+  }: ${time(date, TimestampStyles.LongDateTime)} (${time(
     date,
     TimestampStyles.RelativeTime
-  )})\n🔧 • ${locales.container.type[locale] ?? locales.container.type["en-US"]}: \`${type}\`\n🐺 • ${locales.container.species[locale] ?? locales.container.species["en-US"]}: \`${formatArrayToText(species)}\`${
+  )})\n🔧 • ${
+    locales.container.type[locale] ?? locales.container.type["en-US"]
+  }: \`${type}\`\n🐺 • ${
+    locales.container.species[locale] ?? locales.container.species["en-US"]
+  }: \`${formatArrayToText(species)}\`${
     originalCardF.birthday
-      ? `\n✨ • ${locales.container.birthday[locale] ?? locales.container.birthday["en-US"]}: ${time(new Date(originalCardF.birthday), TimestampStyles.ShortDateTime)} (${time(new Date(originalCardF.birthday), TimestampStyles.RelativeTime)})`
+      ? `\n✨ • ${
+          locales.container.birthday[locale] ??
+          locales.container.birthday["en-US"]
+        }: ${time(
+          new Date(originalCardF.birthday),
+          TimestampStyles.ShortDateTime
+        )} (${time(
+          new Date(originalCardF.birthday),
+          TimestampStyles.RelativeTime
+        )})`
       : ""
-  }${originalCardF.gender ? `\n👤 • ${locales.container.gender[locale] ?? locales.container.gender["en-US"]}: \`${originalCardF.gender}\` ${originalCardF.sexuality ? `\`(${originalCardF.sexuality})\`` : ""}` : ""}`;
+  }${
+    originalCardF.gender
+      ? `\n👤 • ${
+          locales.container.gender[locale] ?? locales.container.gender["en-US"]
+        }: \`${originalCardF.gender}\` ${
+          originalCardF.sexuality ? `(\`${originalCardF.sexuality}\`)` : ""
+        }`
+      : ""
+  }`;
 
-  let secondText = `❤️ • ${locales.container.live[locale] ?? locales.container.live["en-US"]}: \`${
+  let secondText = `❤️ • ${
+    locales.container.live[locale] ?? locales.container.live["en-US"]
+  }: \`${
     cardF.live < 0
       ? originalCardF.live -
         (originalCardF.live * cardF.live.replace("-", "")) / 100
       : originalCardF.live + (originalCardF.live * cardF.live) / 100
-  }%\` (\`${cardF.live}\%\`)\n⚔️ • ${locales.container.attacks[locale] ?? locales.container.attacks["en-US"]}: \`${
+  }%\` (\`${cardF.live}\%\`)\n⚔️ • ${
+    locales.container.attacks[locale] ?? locales.container.attacks["en-US"]
+  }: \`${
     cardF.attacks < 0
       ? originalCardF.attacks -
         (originalCardF.attacks * cardF.attacks.replace("-", "")) / 100
       : originalCardF.attacks + (originalCardF.attacks * cardF.attacks) / 100
   }%\` (\`${cardF.attacks}\%\`)${
     cardF.gived != 0
-      ? `\n❇️ • ${locales.container.giveBy[locale] ?? locales.container.giveBy["en-US"]}: <@${cardF.gived}> the ${time(new Date(cardF.giveDate), TimestampStyles.LongDateTime)} (${time(new Date(cardF.giveDate), TimestampStyles.RelativeTime)})`
+      ? `\n❇️ • ${
+          locales.container.giveBy[locale] ?? locales.container.giveBy["en-US"]
+        }: <@${cardF.gived}> the ${time(
+          new Date(cardF.giveDate),
+          TimestampStyles.LongDateTime
+        )} (${time(new Date(cardF.giveDate), TimestampStyles.RelativeTime)})`
       : ""
   }`;
 
@@ -187,10 +228,10 @@ function event_dated_card(client) {
 
   function updateCards(cardID, canSpawn) {
     client
-      .knex('cards')
+      .knex("cards")
       .where({ id: cardID })
       .update({ can_spawn: canSpawn })
-      .catch((err) => console.error(err));
+      .catch(err => console.error(err));
   }
 
   // New year - 30th december to 5th january - CardID: 20
@@ -255,4 +296,11 @@ function event_dated_card(client) {
   }
 }
 
-module.exports = { card, cardContainer, originalCard, getMissingCards, getUserCards, event_dated_card };
+module.exports = {
+  card,
+  cardContainer,
+  originalCard,
+  getMissingCards,
+  getUserCards,
+  event_dated_card,
+};
