@@ -76,7 +76,7 @@ async function cardContainer(client, cardId, locale) {
     locales.container.name[locale] ?? locales.container.name["en-US"]
   }: \`${name}\`\n📅 • ${
     locales.container.time[locale] ?? locales.container.time["en-US"]
-  }: ${time(date, TimestampStyles.LongDateTime)} (${time(
+  }: ${time(date, TimestampStyles.LongDate)} (${time(
     date,
     TimestampStyles.RelativeTime
   )})\n🔧 • ${
@@ -90,7 +90,7 @@ async function cardContainer(client, cardId, locale) {
           locales.container.birthday["en-US"]
         }: ${time(
           new Date(originalCardF.birthday),
-          TimestampStyles.ShortDateTime
+          TimestampStyles.ShortDate
         )} (${time(
           new Date(originalCardF.birthday),
           TimestampStyles.RelativeTime
