@@ -230,7 +230,7 @@ function event_dated_card(client) {
     client
       .knex("cards")
       .where({ id: cardID })
-      .update({ can_spawn: canSpawn })
+      .update({ rarity: canSpawn })
       .catch(err => console.error(err));
   }
 
