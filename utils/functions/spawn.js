@@ -131,6 +131,30 @@ async function isXMinutesPassed(message, client) {
       }
     }
 
+    let channel = await message.channel;
+    if (channel) {
+      let messages = channel.messages.fetch({
+        limit: 15,
+        cache: false,
+        around: message.id,
+      });
+      if (
+        messages.find(msg => msg.author.id == client.user.id).size > 0 &&
+        !bypass
+      ) {
+        client.logger.log(
+          "info",
+          `\ Card spawning is not allowed (recent bot message check).`
+        );
+        return false;
+      }
+    } else {
+      client.logger.log(
+        "warn",
+        `\ Recent bot message check skipped (channel fetch failed).`
+      );
+    }
+
     if (serverConfig.last_Card != null) {
       if (bypass)
         message.reply({
@@ -164,12 +188,20 @@ async function isXMinutesPassed(message, client) {
       .where({ id: message.guild.id })
       .catch(err => console.error(err));
 
-    /*
-    const memberCount = message.guild.memberCount;
-
-    // Calculer le temps en minutes en fonction du nombre de membres
-    serverConfig.time = parseInt(serverConfig.time - (Math.floor(Math.random() * (250 - 10) + 10) * (message.content.length / 15)) / memberCount); //FIXME Don't calculate the good time
-    */
+    if (memberCount) {
+      let newTime = parseInt(
+        serverConfig.time -
+          Math.floor(Math.random() * (250 - 10) + 10) *
+            (message.content.length / 15)
+      );
+      let date = new Date(serverConfig.time);
+      date.setTime(date.getTime() + newTime);
+      client
+        .knex("guilds")
+        .update({ time: date.toISOString() })
+        .where({ id: message.guild.id })
+        .catch(err => console.error(err));
+    }
 
     let dateFirstCheck10 = new Date(serverConfig.First_Check);
     dateFirstCheck10.setMinutes(dateFirstCheck10.getMinutes() + 10);
@@ -312,37 +344,43 @@ async function win(client, message) {
     if (card.nsfw) is_nsfw = true;
     if (card.event) is_event = true;
 
-    setTimeout(
-      async () => {
-        const catchContainer = new ContainerBuilder()
-          .addTextDisplayComponents(textDisplay =>
-            textDisplay.setContent(
-              `# ${locales.embed.title[serverConfig.locale] ?? locales.embed.title["en-US"]}${is_event ? "\n\n## <:Warning_Blue:1324412874344632341> Event Card" : is_nsfw ? "\n\n## <:Warning:1324412876185796689> Mature content" : ""}`
-            )
+    setTimeout(async () => {
+      const catchContainer = new ContainerBuilder()
+        .addTextDisplayComponents(textDisplay =>
+          textDisplay.setContent(
+            `# ${
+              locales.embed.title[serverConfig.locale] ??
+              locales.embed.title["en-US"]
+            }${
+              is_event
+                ? "\n\n## <:Warning_Blue:1324412874344632341> Event Card"
+                : is_nsfw
+                ? "\n\n## <:Warning:1324412876185796689> Mature content"
+                : ""
+            }`
           )
-          .addSeparatorComponents(separator => separator)
-          .addMediaGalleryComponents(mediaGallery =>
-            mediaGallery.addItems(mediaGalleryItem =>
-              mediaGalleryItem.setURL(card.image).setSpoiler(is_nsfw ?? false)
-            )
+        )
+        .addSeparatorComponents(separator => separator)
+        .addMediaGalleryComponents(mediaGallery =>
+          mediaGallery.addItems(mediaGalleryItem =>
+            mediaGalleryItem.setURL(card.image).setSpoiler(is_nsfw ?? false)
           )
-          .addSeparatorComponents(separator => separator)
-          .addActionRowComponents(actionRow =>
-            actionRow.setComponents(
-              new ButtonBuilder()
-                .setCustomId("catch")
-                .setDisabled(false)
-                .setEmoji("<:Bug_hunt:1324413128817250457>")
-                .setLabel(
-                  locales.button.text[serverConfig.locale] ??
-                    locales.button.text["en-US"]
-                )
-                .setStyle(ButtonStyle.Primary)
-            )
-          );
-        const channel = await guild.channels.cache.get(
-          serverConfig.spawn_channel
+        )
+        .addSeparatorComponents(separator => separator)
+        .addActionRowComponents(actionRow =>
+          actionRow.setComponents(
+            new ButtonBuilder()
+              .setCustomId("catch")
+              .setDisabled(false)
+              .setEmoji("<:Bug_hunt:1324413128817250457>")
+              .setLabel(
+                locales.button.text[serverConfig.locale] ??
+                  locales.button.text["en-US"]
+              )
+              .setStyle(ButtonStyle.Primary)
+          )
         );
+<<<<<<< Updated upstream
         channel
           .send({
             components: [catchContainer],
@@ -368,23 +406,52 @@ async function win(client, message) {
               try {
                 let msg = await channel.messages.fetch(m.id);
                 if (!msg) return;
+=======
+      const channel = await guild.channels.cache.get(
+        serverConfig.spawn_channel
+      );
+      if (!channel) return;
+      channel
+        .send({
+          components: [catchContainer],
+          flags: MessageFlags.IsComponentsV2,
+        })
+        .then(async m => {
+          client.logger.log(
+            "info",
+            `\ Card spawned: ${card.name} (${card.id}) in ${guild.name} (${guild.id})`
+          );
+          let channel = await guild.channels.cache.get(m.channelId);
+          client
+            .knex("anti-cheat_messages")
+            .update({ spawnMessage: m.id })
+            .where({ message_id: message.id })
+            .catch(err => console.error(err));
+          setTimeout(async () => {
+            serverConfig = await client
+              .knex("guilds")
+              .update({ last_Card: null })
+              .where({ id: guild.id })
+              .catch(err => console.error(err));
+            try {
+              let msg = await channel.messages.fetch(m.id);
+              if (!msg) return;
+>>>>>>> Stashed changes
 
-                const newCatchContainer = m.components[0];
-                newCatchContainer.components[4].components[0].data.disabled = true;
-                msg
-                  .edit({
-                    components: [newCatchContainer],
-                    flags: MessageFlags.IsComponentsV2,
-                  })
-                  .catch(err => console.error(err));
-              } catch (err) {
-                console.error(err);
-              }
-            }, 300_000);
-          });
-      },
-      Math.floor(Math.random() * (7500 - 2500) + 2500)
-    );
+              const newCatchContainer = m.components[0];
+              newCatchContainer.components[4].components[0].data.disabled = true;
+              msg
+                .edit({
+                  components: [newCatchContainer],
+                  flags: MessageFlags.IsComponentsV2,
+                })
+                .catch(err => console.error(err));
+            } catch (err) {
+              console.error(err);
+            }
+          }, 300_000);
+        });
+    }, Math.floor(Math.random() * (7500 - 2500) + 2500));
   } while (!done);
 }
 module.exports = { isXMinutesPassed, win };
