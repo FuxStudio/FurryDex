@@ -12,88 +12,6 @@
     "config": {
       "name": "config",
       "description": "base config command",
-      "options": {
-        "enable": {
-          "name": "enable",
-          "description": "enable or disable the card spawn.",
-          "options": {
-            "enable": {
-              "name": "enable",
-              "description": "enable or disable the card spawn.",
-              "choices": {
-                "Enable": "Enable",
-                "Disable": "Disable"
-              }
-            }
-          }
-        },
-        "channel": {
-          "name": "channel",
-          "description": "Channel where card will spawn.",
-          "options": {
-            "channel": {
-              "name": "channel",
-              "description": "Channel where card will spawn."
-            }
-          }
-        },
-        "locale": {
-          "name": "locale",
-          "description": "Set the base-lang for the server.",
-          "options": {
-            "lang": {
-              "name": "lang",
-              "description": "Set the base-lang for the server.",
-              "choices": {
-                "German": "German",
-                "English": "English",
-                "Spanish": "Spanish",
-                "French": "French",
-                "Italian": "Italian",
-                "Dutch": "Dutch",
-                "Norwegian": "Norwegian",
-                "Polish": "Polish",
-                "Portugese": "Portugese",
-                "Romanian": "Romanian",
-                "Finish": "Finish",
-                "Swedish": "Swedish",
-                "Bulgarian": "Bulgarian",
-                "Russian": "Russian",
-                "Ukrainian": "Ukrainian",
-                "Chinese": "Chinese",
-                "Japanese": "Japanese",
-                "Korean": "Korean"
-              }
-            }
-          }
-        },
-        "auto-locale": {
-          "name": "auto-locale",
-          "description": "Automaticly set the base-lang for the server."
-        },
-        "leaderboard_channel": {
-          "name": "leaderboard_channel",
-          "description": "Set the channel for the leaderboard."
-        },
-        "leaderboard": {
-          "name": "leaderboard",
-          "description": "Set the different leaderboards to show."
-        },
-        "leaderboard_edit": {
-          "name": "leaderboard_edit",
-          "description": "Replace the leaderboard message instead of send another one.",
-          "options": {
-            "enable": {
-              "name": "enable",
-              "description": "Enable or disable the leaderboard edit function.",
-              "choices": {
-                "Enable": "Enable",
-                "Disable": "Disable"
-              }
-            }
-          }
-        }
-      },
       "run": {
         "changed": "The language have been set to `%lang%`",
         "changedChan": "The channel have been set to `%channel%`",
@@ -114,6 +32,14 @@
           "title": "Channel",
           "description": "Channel where cards will spawn.",
           "placeholder": "Select a channel"
+        },
+        "reduce": {
+          "title": "Reduce spawn",
+          "description": "Reduce card spawning to avoid spam in little active server.\nReccommended for servers that use the main channel as spawn channel.\n-# this is not for punished member, only for make the main channel more reliable\n- need 15 messages from the last spawn in the channel for new spawn",
+          "button": {
+            "enable": "Enable",
+            "disable": "Disable"
+          }
         },
         "locale": {
           "title": "Locale",
