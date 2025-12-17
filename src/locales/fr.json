@@ -12,88 +12,6 @@
     "config": {
       "name": "configuration",
       "description": "commande de configuration de base",
-      "options": {
-        "enable": {
-          "name": "activé",
-          "description": "activer ou désactiver le spawn des cartes.",
-          "options": {
-            "enable": {
-              "name": "activé",
-              "description": "activer ou désactiver le spawn des cartes.",
-              "choices": {
-                "Enable": "Activer",
-                "Disable": "Désactiver"
-              }
-            }
-          }
-        },
-        "channel": {
-          "name": "salon",
-          "description": "Canal d'apparition des cartes.",
-          "options": {
-            "channel": {
-              "name": "salon",
-              "description": "Canal d'apparition des cartes."
-            }
-          }
-        },
-        "locale": {
-          "name": "langue",
-          "description": "Définissez la langue de base du serveur.",
-          "options": {
-            "lang": {
-              "name": "langue",
-              "description": "Définissez la langue de base du serveur.",
-              "choices": {
-                "German": "Allemand",
-                "English": "Anglais",
-                "Spanish": "Espagnol",
-                "French": "Français",
-                "Italian": "Italien",
-                "Dutch": "Néerlandais",
-                "Norwegian": "Norvégien",
-                "Polish": "Polonais",
-                "Portugese": "Portugais",
-                "Romanian": "Roumain",
-                "Finish": "Finlandais",
-                "Swedish": "Suédois",
-                "Bulgarian": "Bulgare",
-                "Russian": "Russe",
-                "Ukrainian": "Ukrainien",
-                "Chinese": "Chinois",
-                "Japanese": "Japonais",
-                "Korean": "Coréen"
-              }
-            }
-          }
-        },
-        "auto-locale": {
-          "name": "auto-langue",
-          "description": "Réglez automatiquement la langue de base du serveur."
-        },
-        "leaderboard_channel": {
-          "name": "salon_classement",
-          "description": "Définir le salon pour les classements."
-        },
-        "leaderboard": {
-          "name": "classement",
-          "description": "Définissez les différents classements à afficher."
-        },
-        "leaderboard_edit": {
-          "name": "modification",
-          "description": "Remplacer le message du classement au lieu d'en envoyer un autre.",
-          "options": {
-            "enable": {
-              "name": "activé",
-              "description": "Activer ou désactiver la fonction d'édition du classement.",
-              "choices": {
-                "Enable": "Activer",
-                "Disable": "Désactiver"
-              }
-            }
-          }
-        }
-      },
       "run": {
         "changed": "La langue a été définie sur `%lang%`",
         "changedChan": "Le salon a été réglé sur `%channel%`",
@@ -114,6 +32,14 @@
           "title": "Salon",
           "description": "Channel where cards will spawn.",
           "placeholder": "Sélectionnez un salon"
+        },
+        "reduce": {
+          "title": "Reduce spawn",
+          "description": "Reduce card spawning to avoid spam in little active server.\nReccommended for servers that use the main channel as spawn channel.\n-# this is not for punished member, only for make the main channel more reliable\n- need 15 messages from the last spawn in the channel for new spawn",
+          "button": {
+            "enable": "Enable",
+            "disable": "Disable"
+          }
         },
         "locale": {
           "title": "Langue",
