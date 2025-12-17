@@ -46,5 +46,9 @@ module.exports = {
     require("../../utils/functions/anticheat").anticheat_start(client);
     require("../../utils/functions/update").upgrade_data(client);
     require("../../utils/functions/update").update_data(client);
+    require("../../utils/functions/card").event_dated_card(client);
+    setInterval(() => {
+      require("../../utils/functions/card").event_dated_card(client);
+    }, 24 * 60 * 60 * 1000);
   },
 };

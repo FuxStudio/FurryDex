@@ -63,30 +63,71 @@ async function cardContainer(client, cardId, locale) {
   }
 
   const parsedAuthorId = JSON.parse(originalCardF.authorId);
-  let firstText = `👑 • ${locales.container.author[locale] ?? locales.container.author["en-US"]}: ${formatArrayToText((typeof parsedAuthorId == "number" ? [parsedAuthorId.toString()] : parsedAuthorId).map(x => `<@${x}>`))}\n🆔 • ${
+  let firstText = `👑 • ${
+    locales.container.author[locale] ?? locales.container.author["en-US"]
+  }: ${formatArrayToText(
+    (typeof parsedAuthorId == "number"
+      ? [parsedAuthorId.toString()]
+      : parsedAuthorId
+    ).map(x => `<@${x}>`)
+  )}\n🆔 • ${
     locales.container.id[locale] ?? locales.container.id["en-US"]
-  }: \`#${cardF.id}\`\n🪪 • ${locales.container.name[locale] ?? locales.container.name["en-US"]}: \`${name}\`\n📅 • ${locales.container.time[locale] ?? locales.container.time["en-US"]}: ${time(date, TimestampStyles.LongDateTime)} (${time(
+  }: \`#${cardF.id}\`\n🪪 • ${
+    locales.container.name[locale] ?? locales.container.name["en-US"]
+  }: \`${name}\`\n📅 • ${
+    locales.container.time[locale] ?? locales.container.time["en-US"]
+  }: ${time(date, TimestampStyles.LongDate)} (${time(
     date,
     TimestampStyles.RelativeTime
-  )})\n🔧 • ${locales.container.type[locale] ?? locales.container.type["en-US"]}: \`${type}\`\n🐺 • ${locales.container.species[locale] ?? locales.container.species["en-US"]}: \`${formatArrayToText(species)}\`${
+  )})\n🔧 • ${
+    locales.container.type[locale] ?? locales.container.type["en-US"]
+  }: \`${type}\`\n🐺 • ${
+    locales.container.species[locale] ?? locales.container.species["en-US"]
+  }: \`${formatArrayToText(species)}\`${
     originalCardF.birthday
-      ? `\n✨ • ${locales.container.birthday[locale] ?? locales.container.birthday["en-US"]}: ${time(new Date(originalCardF.birthday), TimestampStyles.ShortDateTime)} (${time(new Date(originalCardF.birthday), TimestampStyles.RelativeTime)})`
+      ? `\n✨ • ${
+          locales.container.birthday[locale] ??
+          locales.container.birthday["en-US"]
+        }: ${time(
+          new Date(originalCardF.birthday),
+          TimestampStyles.ShortDate
+        )} (${time(
+          new Date(originalCardF.birthday),
+          TimestampStyles.RelativeTime
+        )})`
       : ""
-  }${originalCardF.gender ? `\n👤 • ${locales.container.gender[locale] ?? locales.container.gender["en-US"]}: \`${originalCardF.gender}\` ${originalCardF.sexuality ? `\`(${originalCardF.sexuality})\`` : ""}` : ""}`;
+  }${
+    originalCardF.gender
+      ? `\n👤 • ${
+          locales.container.gender[locale] ?? locales.container.gender["en-US"]
+        }: \`${originalCardF.gender}\` ${
+          originalCardF.sexuality ? `(\`${originalCardF.sexuality}\`)` : ""
+        }`
+      : ""
+  }`;
 
-  let secondText = `❤️ • ${locales.container.live[locale] ?? locales.container.live["en-US"]}: \`${
+  let secondText = `❤️ • ${
+    locales.container.live[locale] ?? locales.container.live["en-US"]
+  }: \`${
     cardF.live < 0
       ? originalCardF.live -
         (originalCardF.live * cardF.live.replace("-", "")) / 100
       : originalCardF.live + (originalCardF.live * cardF.live) / 100
-  }%\` (\`${cardF.live}\%\`)\n⚔️ • ${locales.container.attacks[locale] ?? locales.container.attacks["en-US"]}: \`${
+  }%\` (\`${cardF.live}\%\`)\n⚔️ • ${
+    locales.container.attacks[locale] ?? locales.container.attacks["en-US"]
+  }: \`${
     cardF.attacks < 0
       ? originalCardF.attacks -
         (originalCardF.attacks * cardF.attacks.replace("-", "")) / 100
       : originalCardF.attacks + (originalCardF.attacks * cardF.attacks) / 100
   }%\` (\`${cardF.attacks}\%\`)${
     cardF.gived != 0
-      ? `\n❇️ • ${locales.container.giveBy[locale] ?? locales.container.giveBy["en-US"]}: <@${cardF.gived}> the ${time(new Date(cardF.giveDate), TimestampStyles.LongDateTime)} (${time(new Date(cardF.giveDate), TimestampStyles.RelativeTime)})`
+      ? `\n❇️ • ${
+          locales.container.giveBy[locale] ?? locales.container.giveBy["en-US"]
+        }: <@${cardF.gived}> the ${time(
+          new Date(cardF.giveDate),
+          TimestampStyles.LongDateTime
+        )} (${time(new Date(cardF.giveDate), TimestampStyles.RelativeTime)})`
       : ""
   }`;
 
@@ -180,10 +221,86 @@ function formatArrayToText(array) {
   }
 }
 
+function event_dated_card(client) {
+  const date = new Date();
+  const month = date.getMonth() + 1;
+  const day = date.getDate();
+
+  function updateCards(cardID, canSpawn) {
+    client
+      .knex("cards")
+      .where({ id: cardID })
+      .update({ rarity: canSpawn })
+      .catch(err => console.error(err));
+  }
+
+  // New year - 30th december to 5th january - CardID: 20
+  if ((month === 12 && day >= 30) || (month === 1 && day <= 5)) {
+    updateCards(20, 1);
+  } else {
+    updateCards(20, 0);
+  }
+  // National Hugging Day - 19st January to 23th January - CardID: //
+  /*if (month === 1 && day >= 19 && day <= 23) {
+    updateCards(//, 1);
+  } else {
+    updateCards(//, 0);
+  }*/
+  // Valentine's Day - 12th February to 16th February - CardID: 29
+  if (month === 2 && day >= 12 && day <= 16) {
+    updateCards(29, 1);
+  } else {
+    updateCards(29, 0);
+  }
+  // St. Patrick's Day - 15th March to 19th March - CardID: //
+  /*if (month === 3 && day >= 15 && day <= 19) {
+    updateCards(//, 1);
+  } else {
+    updateCards(//, 0);
+  }*/
+  // April Fools' Day - 30th March to 3rd April - CardID: 30
+  if ((month === 3 && day >= 30) || (month === 4 && day <= 3)) {
+    updateCards(30, 1);
+  } else {
+    updateCards(30, 0);
+  }
+  // FurryDex Anniversary - 11 may - CardID: //
+  /*if (month === 5 && day === 11) {
+    updateCards(//, 1);
+  } else {
+    updateCards(//, 0);
+  }*/
+  // Pride Month - 1st June to 30th June - CardID: //
+  /*if (month === 6) {
+    updateCards(//, 1);
+  } else {
+    updateCards(//, 0);
+  }*/
+  // National Furry Day - 6th to 10th October - CardID: //
+  /*if (month === 10 && day >= 6 && day <= 10) {
+    updateCards(//, 1);
+  } else {
+    updateCards(//, 0);
+  }*/
+  // Halloween - 28th October to 1st November - CardID: //
+  /*if ((month === 10 && day >= 28) || (month === 11 && day <= 1)) {
+    updateCards(//, 1);
+  } else {
+    updateCards(//, 0);
+  }*/
+  // Christmas - 20th December to 26th December - CardID: 18
+  if (month === 12 && day >= 20 && day <= 26) {
+    updateCards(18, 1);
+  } else {
+    updateCards(18, 0);
+  }
+}
+
 module.exports = {
   card,
   cardContainer,
   originalCard,
   getMissingCards,
   getUserCards,
+  event_dated_card,
 };
