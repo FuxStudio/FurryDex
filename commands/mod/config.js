@@ -54,9 +54,18 @@ module.exports = {
           section
             .addTextDisplayComponents(textDisplay =>
               textDisplay.setContent(
-                `## ${locales.enable.title[interaction.locale] ?? locales.enable.title["en-US"]}\n${locales.enable.description[interaction.locale] ?? locales.enable.description["en-US"]}${
+                `## ${
+                  locales.enable.title[interaction.locale] ??
+                  locales.enable.title["en-US"]
+                }\n${
+                  locales.enable.description[interaction.locale] ??
+                  locales.enable.description["en-US"]
+                }${
                   !channel
-                    ? `\n**${locales.enable.note[interaction.locale] ?? locales.enable.note["en-US"]}`
+                    ? `\n**${
+                        locales.enable.note[interaction.locale] ??
+                        locales.enable.note["en-US"]
+                      }`
                     : ""
                 }`
               )
@@ -66,10 +75,10 @@ module.exports = {
                 .setCustomId(serverConfig.enabled == 1 ? "disable" : "enable")
                 .setLabel(
                   serverConfig.enabled == 1
-                    ? (locales.enable.button.disable[interaction.locale] ??
-                        locales.enable.button.disable["en-US"])
-                    : (locales.enable.button.enable[interaction.locale] ??
-                        locales.enable.button.enable["en-US"])
+                    ? locales.enable.button.disable[interaction.locale] ??
+                        locales.enable.button.disable["en-US"]
+                    : locales.enable.button.enable[interaction.locale] ??
+                        locales.enable.button.enable["en-US"]
                 )
                 .setStyle(
                   serverConfig.enabled == 1
@@ -83,7 +92,13 @@ module.exports = {
         //channel
         .addTextDisplayComponents(textDisplay =>
           textDisplay.setContent(
-            `## ${locales.channel.title[interaction.locale] ?? locales.channel.title["en-US"]}\n${locales.channel.description[interaction.locale] ?? locales.channel.description["en-US"]}`
+            `## ${
+              locales.channel.title[interaction.locale] ??
+              locales.channel.title["en-US"]
+            }\n${
+              locales.channel.description[interaction.locale] ??
+              locales.channel.description["en-US"]
+            }`
           )
         )
         .addActionRowComponents(actionRow => {
@@ -105,13 +120,55 @@ module.exports = {
             ]);
           return actionRow;
         })
+        //reduce spawn
+        .addSectionComponents(section =>
+          section
+            .addTextDisplayComponents(textDisplay =>
+              textDisplay.setContent(
+                `## ${
+                  locales.reduce.title[interaction.locale] ??
+                  locales.reduce.title["en-US"]
+                }\n${
+                  locales.reduce.description[interaction.locale] ??
+                  locales.reduce.description["en-US"]
+                }`
+              )
+            )
+            .setButtonAccessory(button =>
+              button
+                .setCustomId(
+                  serverConfig.reduce_spawn == 1
+                    ? "reduce_disable"
+                    : "reduce_enable"
+                )
+                .setLabel(
+                  serverConfig.reduce_spawn == 1
+                    ? locales.reduce.button.disable[interaction.locale] ??
+                        locales.reduce.button.disable["en-US"]
+                    : locales.reduce.button.enable[interaction.locale] ??
+                        locales.reduce.button.enable["en-US"]
+                )
+                .setStyle(
+                  serverConfig.reduce_spawn == 1
+                    ? ButtonStyle.Danger
+                    : ButtonStyle.Success
+                )
+                .setDisabled(channel ? false : true)
+            )
+        )
         .addSeparatorComponents(separator => separator)
         //locale
         .addSectionComponents(section =>
           section
             .addTextDisplayComponents(textDisplay =>
               textDisplay.setContent(
-                `## ${locales.locale.title[interaction.locale] ?? locales.locale.title["en-US"]}\n${locales.locale.description[interaction.locale] ?? locales.locale.description["en-US"]}`
+                `## ${
+                  locales.locale.title[interaction.locale] ??
+                  locales.locale.title["en-US"]
+                }\n${
+                  locales.locale.description[interaction.locale] ??
+                  locales.locale.description["en-US"]
+                }`
               )
             )
             .setButtonAccessory(button =>
@@ -144,7 +201,14 @@ module.exports = {
             new ButtonBuilder()
               .setCustomId("auto-locale")
               .setLabel(
-                `${locales.locale.button[interaction.locale] ?? locales.locale.button["en-US"]} [${`${interaction.guild.preferredLocale ? interaction.guild.preferredLocale : interaction.locale}`.toUpperCase()}]`
+                `${
+                  locales.locale.button[interaction.locale] ??
+                  locales.locale.button["en-US"]
+                } [${`${
+                  interaction.guild.preferredLocale
+                    ? interaction.guild.preferredLocale
+                    : interaction.locale
+                }`.toUpperCase()}]`
               )
               .setStyle(ButtonStyle.Primary)
           )
@@ -190,6 +254,18 @@ module.exports = {
         await client
           .knex("guilds")
           .update({ spawn_channel: response.values[0] })
+          .where({ id: interaction.guild.id })
+          .catch(err => console.error(err));
+      } else if (response.customId == "reduce_enable") {
+        await client
+          .knex("guilds")
+          .update({ reduce_spawn: true })
+          .where({ id: interaction.guild.id })
+          .catch(err => console.error(err));
+      } else if (response.customId == "reduce_disable") {
+        await client
+          .knex("guilds")
+          .update({ reduce_spawn: false })
           .where({ id: interaction.guild.id })
           .catch(err => console.error(err));
       } else if (response.customId == "auto-locale") {
