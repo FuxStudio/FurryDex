@@ -190,7 +190,7 @@ async function isXMinutesPassed(message, client) {
       .where({ id: message.guild.id })
       .catch(err => console.error(err));
 
-    if (memberCount) {
+    if (memberCount && false) {
       let newTime = parseInt(
         serverConfig.time -
           Math.floor(Math.random() * (250 - 10) + 10) *
