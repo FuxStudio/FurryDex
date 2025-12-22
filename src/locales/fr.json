@@ -102,8 +102,8 @@
           }
         },
         "completion": {
-          "name": "complétion",
-          "description": "Montrez votre complétion/progression actuelle des Cartes Furry.",
+          "name": "collection",
+          "description": "Montrez votre collection/progression actuelle des Cartes Furry.",
           "options": {
             "user": {
               "name": "utilisateur",
