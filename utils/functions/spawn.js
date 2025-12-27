@@ -134,20 +134,27 @@ async function isXMinutesPassed(message, client) {
     if (serverConfig.reduce_spawn) {
       let channel = await message.channel;
       if (channel) {
-        let messages = channel.messages.fetch({
+        let messages = await channel.messages.fetch({
           limit: 15,
           cache: false,
           around: message.id,
         });
-        if (
-          messages.find(msg => msg.author.id == client.user.id).size > 0 &&
-          !bypass
-        ) {
+        if (messages) {
+          if (
+            messages.find(msg => msg.author.id === client.user.id).size > 0 &&
+            !bypass
+          ) {
+            client.logger.log(
+              "info",
+              `\ Card spawning is not allowed (recent bot message check).`
+            );
+            return false;
+          }
+        } else {
           client.logger.log(
-            "info",
-            `\ Card spawning is not allowed (recent bot message check).`
+            "warn",
+            `\ Recent bot message check skipped (message fetch failed).`
           );
-          return false;
         }
       } else {
         client.logger.log(
