@@ -283,7 +283,8 @@
         "ukw": "Unknown",
         "man": "Man",
         "woman": "Woman",
-        "nonbinary": "Non binary"
+        "nonbinary": "Non binary",
+        "agenre": "Agenre"
       },
       "sexuality": {
         "ukw": "Unknown",
@@ -295,7 +296,8 @@
         "demisexual": "demisexual",
         "polysexual": "polysexual",
         "queer": "queer",
-        "aromantic": "aromantic"
+        "aromantic": "aromantic",
+        "ace": "asexual"
       }
     }
   },
