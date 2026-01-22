@@ -14,6 +14,7 @@ async function cardContainer(client, cardId, locale) {
   //let creator = client.users.fetch(originalCardF.author);
   let species = [];
   for (const species_id of JSON.parse(originalCardF.species)) {
+    if (!species_id) continue;
     species.push(
       client.locales.utils.cards.species[species_id][locale] ??
         client.locales.utils.cards.species[species_id]["en-US"]
