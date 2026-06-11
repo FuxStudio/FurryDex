@@ -141,7 +141,7 @@ async function isXMinutesPassed(message, client) {
         });
         if (messages) {
           if (
-            messages.find(msg => msg.author.id === client.user.id).size > 0 &&
+            messages.some(msg => msg.author.id === client.user.id) &&
             !bypass
           ) {
             client.logger.log(
@@ -282,17 +282,17 @@ async function win(client, message) {
 
   try {
     // Récupère tous les membres du serveur dans le cache (en cas de besoin, fetch pour actualiser le cache)
-    const membres = await guild.members.fetch();
+    const members = await guild.members.fetch();
 
     // Filtre les cartes en vérifiant si l'authorId (converti en chaîne) est présent parmi les membres
-    let cartes;
+    let c;
 
     if (
       !(serverConfig.premium == 1 && serverConfig.spawnAllCards == 1) ||
       cards.length == 1
     ) {
-      cartes = cards.filter(carte =>
-        membres.some(member =>
+      c = cards.filter(carte =>
+        members.some(member =>
           (typeof JSON.parse(carte.authorId) == "number"
             ? [carte.authorId.toString()]
             : JSON.parse(carte.authorId)
@@ -300,7 +300,7 @@ async function win(client, message) {
         )
       );
     } else {
-      cartes = cards;
+      c = cards;
     }
 
     const sommeRaretés = cartes.reduce(
