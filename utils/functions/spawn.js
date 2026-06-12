@@ -303,7 +303,7 @@ async function win(client, message) {
       c = cards;
     }
 
-    const sommeRaretés = cartes.reduce(
+    const sommeRaretés = c.reduce(
       (acc, carte) => acc + Number(carte.rarity),
       0
     );
@@ -313,7 +313,7 @@ async function win(client, message) {
 
     // Choisir la carte en fonction du nombre aléatoire
     let sommeTemp = 0;
-    for (const carte of cartes) {
+    for (const carte of c) {
       if (!card) {
         sommeTemp += Number(carte.rarity);
         if (random < sommeTemp) {
